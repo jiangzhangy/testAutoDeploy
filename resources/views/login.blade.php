@@ -9,6 +9,10 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="h-96 w-10 bg-red-500">111</div>
+    <div class="flex flex-row">
+        <div class="bg-red-300">1</div>
+        <div class="bg-red-500">2</div>
+        <div class="bg-gray-300">3</div>
+    </div>
 </body>
 </html>

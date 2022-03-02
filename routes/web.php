@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('components.app');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+// 登录页面
+Route::get('/login', [\App\Http\Controllers\Authorization::class, 'login'])->name('login');

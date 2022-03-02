@@ -5,7 +5,16 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        'auth-bg': '#0e1e40'
+      },
+      spacing: {
+        '100': '25rem',
+      }
+    },
   },
   plugins: [],
 }
