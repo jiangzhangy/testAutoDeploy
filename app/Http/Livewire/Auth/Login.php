@@ -11,12 +11,14 @@ class Login extends Component
     public $url = '';
     public $mobile;
     public $code;
+    public $linkedAccount;
 
     public function mount(RequestApi $requestApi)
     {
         $res = $requestApi->accessWeichatLoginUrl();
         if ($res){
-            $this->url = substr($res->getBody()->getContents(), 9);
+            $resArr = json_decode($res->getBody()->getContents(), true);
+            $this->url = $resArr['data'];
         }
     }
     public function render()
@@ -46,8 +48,35 @@ class Login extends Component
         $this->mobile = $mobile;
     }
 
+    /**
+     * 手机验证码登录
+     * @param $mobile
+     * @param $code
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Support\MessageBag
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function submit($mobile, $code)
     {
+        $res = $this->getUserByPhone($mobile, $code);
+        if ($res !== true){
+            return $res;
+        }
+        // 跳转到 个人中心
+        return redirect()->route('dashboard');
+    }
+
+    public function bindPhone($mobile, $code)
+    {
+        $res = $this->getUserByPhone($mobile, $code);
+        if ($res !== true){
+            return $res;
+        }
+        // 绑定微信和手机号
+
+
+    }
+
+    protected function getUserByPhone($mobile, $code){
         // 验证手机号和验证码格式
         $validateData = Validator::make(
             ['code' => $code, 'mobile' => $mobile],
@@ -71,7 +100,6 @@ class Login extends Component
         }
         // 存入 session
         session(['auth' => $resArr['data']]);
-        // 跳转到 个人中心
-        return redirect()->route('dashboard');
+        return true;
     }
 }

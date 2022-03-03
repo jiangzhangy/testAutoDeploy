@@ -45,6 +45,13 @@ class RequestApi
         }
     }
 
+    /**
+     * 手机验证码登录
+     * @param $mobile
+     * @param $code
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function phoneLogin($mobile, $code)
     {
         $body = json_encode(['account' => $mobile, 'code' => $code]);
@@ -52,7 +59,32 @@ class RequestApi
         {
             return $this->client->request('POST', config('remote.phone_login_uri'), ['headers' => ['Content-Type' => 'application/json', 'Accept' => 'application/json'], 'body' => $body]);
         }catch (\Exception $exception){
-            dd($exception->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * 通过微信openid 查询用户
+     * @param $openid
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUserByOpenid($openid)
+    {
+        try
+        {
+            return $this->client->request('GET', config('remote.get_user_by_openid_uri'), ['query' => ['openID' => $openid]]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    public function boundWechatPhone($phone, $openid)
+    {
+        try
+        {
+            return $this->client->request('GET', config('remote.get_user_by_openid_uri'), ['query' => ['openID' => $openid]]);
+        }catch (\Exception $exception){
             return false;
         }
     }

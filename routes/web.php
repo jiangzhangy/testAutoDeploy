@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 // 登录页面
 Route::get('/login', [\App\Http\Controllers\Authorization::class, 'login'])->name('login');
+// 个人中心
+Route::get('/dashboard', [\App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
