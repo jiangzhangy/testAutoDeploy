@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "393406",
+      "name": "我",
+      "font_class": "my",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "7819538",
+      "name": "book-open",
+      "font_class": "book-open",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "18252535",
+      "name": "classification",
+      "font_class": "fenlei",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    }
+  ]
+}
