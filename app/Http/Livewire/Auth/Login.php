@@ -72,7 +72,16 @@ class Login extends Component
             return $res;
         }
         // 绑定微信和手机号
-
+        $client = new RequestApi();
+        $res = $client->boundWechatPhone($this->linkedAccount);
+        if ($res === false) {
+            return $this->addError('systemError', '系统异常');
+        }
+        $resArr = json_decode($res->getBody()->getContents(), true);
+        if($res->getStatusCode() !== 200 && $resArr['code'] !== 0){
+            return $this->addError('bound', '绑定失败');
+        }
+        return redirect()->to('/dashboard');
 
     }
 
@@ -95,8 +104,8 @@ class Login extends Component
             return $this->addError('systemError', '系统异常');
         }
         $resArr = json_decode($res->getBody()->getContents(), true);
-        if (isset($resArr['code']) && $resArr['code'] !== 0) {
-            return $this->addError('code', '验证码错误');
+        if (isset($resArr['status']) && $resArr['status'] !== 0) {
+            return $this->addError('code', '验证码错误或者过期');
         }
         // 存入 session
         session(['auth' => $resArr['data']]);

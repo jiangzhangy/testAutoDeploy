@@ -9,15 +9,20 @@ class Authorization extends Controller
 {
     public function login(Request $request)
     {
+        if (session('auth')){
+            return redirect('dashboard');
+        }
         if ($request->input('openid')) {
             $client = new RequestApi();
             $res = $client->getUserByOpenid($request->input('openid'));
             if ($res !== false){
                 $resArr = json_decode($res->getBody()->getContents(), true);
-                if ($resArr['code'] === 16001){
+                if ($resArr['status'] === 16001){
                     return view('pages.auth.login', [
                         'linkedAccount' => $request->input('openid')
                     ]);
+                }elseif ($resArr['status'] === 0){
+                    return redirect('dashboard');
                 }
             }
         }

@@ -6,7 +6,7 @@
         <style>
             .todo-striping::before, .todo-striping::after {
                 color: #e4e6e9;
-                content: "————";
+                content: "———————";
                 font-size: 24px;
                 margin: 10px;
             }

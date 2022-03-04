@@ -79,11 +79,13 @@ class RequestApi
         }
     }
 
-    public function boundWechatPhone($phone, $openid)
+    public function boundWechatPhone($openid)
     {
+        $auth = session('auth');
+        $token = $auth['accessToken'];
         try
         {
-            return $this->client->request('GET', config('remote.get_user_by_openid_uri'), ['query' => ['openID' => $openid]]);
+            return $this->client->request('GET', config('remote.bound_wechat_phone_uri'), ['query' => ['openID' => $openid], 'headers' => ['Authorization' => 'bearer' . $token]]);
         }catch (\Exception $exception){
             return false;
         }
