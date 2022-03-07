@@ -31,7 +31,7 @@
                 <div class="h-[80px] border border-b-[#D1D6DF] flex justify-between items-center"  x-data="{
                         showItems: false
                     }">
-                    <p class="ml-10 text-xl font-bold">个人中心</p>
+                    <p class="ml-10 text-xl font-bold">{{ $tab ?? '个人中心' }}</p>
                     <div class="cursor-pointer h-[80px] pt-[25px] px-[20px] relative hover:bg-[#d2e3fc]" @click="showItems = !showItems">
                         <img class="h-[30px] inline mr-2" src="{{ asset('images/backend/icon_Defaultavatar_30.png') }}" alt="账户"><span class="text-sm">{{ session('auth')['nickname'] ?? 'aomei20220307' }}</span>
                         <img class="h-1.5 inline mr-2" src="{{ asset('images/backend/icon_arrow_down_normal.png') }}" alt="down">
