@@ -22,6 +22,7 @@ class Authorization extends Controller
                         'linkedAccount' => $request->input('openid')
                     ]);
                 }elseif ($resArr['status'] === 0){
+                    session(['auth' => $resArr['data']]);
                     return redirect('dashboard');
                 }
             }

@@ -15,13 +15,13 @@
                 </div>
                 <div class="flex-1 bg-[#14223B] h-screen w-full">
                     <ul class="w-full text-white flex flex-col justify-left">
-                        <li tabindex="1" onclick="location={{ '\'' . route('dashboard-account') . '\'' }}" class="h-14 pt-4 pl-9 text-sm text-[#B2BFD6] cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
+                        <li tabindex="1" onclick="location={{ '\'' . route('dashboard-account') . '\'' }}" class="@if(substr(url()->current(), strripos(url()->current(), '/')+1) === 'account') text-white  bg-[#3481F6] @else text-[#B2BFD6] @endif h-14 pt-4 pl-9 text-sm cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
                             <span class="iconfont icon-my h-[18px] mr-[24px]"></span>个人中心
                         </li>
-                        <li tabindex="2" onclick="location={{ '\'' . route('dashboard-products') . '\'' }}" class="h-14 pt-4 pl-9 text-sm text-[#B2BFD6] cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
+                        <li tabindex="2" onclick="location={{ '\'' . route('dashboard-products') . '\'' }}" class="@if(substr(url()->current(), strripos(url()->current(), '/')+1) === 'products') text-white  bg-[#3481F6] @else text-[#B2BFD6] @endif h-14 pt-4 pl-9 text-sm cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
                            <span class="iconfont icon-fenlei h-[18px] mr-[24px]"></span>我的产品
                         </li>
-                        <li tabindex="3" onclick="location={{ '\'' . route('dashboard-help') . '\'' }}" class="h-14 pt-4 pl-9 text-sm text-[#B2BFD6] cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
+                        <li tabindex="3" onclick="location={{ '\'' . route('dashboard-help') . '\'' }}" class="@if(substr(url()->current(), strripos(url()->current(), '/')+1) === 'help') text-white  bg-[#3481F6] @else text-[#B2BFD6] @endif h-14 pt-4 pl-9 text-sm cursor-pointer hover:bg-[#3481F6] hover:text-white active:bg-[#3481F6] active:text-white  focus:bg-[#3481F6] focus:text-white">
                             <span class="iconfont icon-book-open h-[18px] mr-[24px]"></span>帮助中心
                         </li>
                     </ul>

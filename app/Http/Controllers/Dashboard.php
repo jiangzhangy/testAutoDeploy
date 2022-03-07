@@ -6,13 +6,6 @@ use Illuminate\Http\Request;
 
 class Dashboard extends Controller
 {
-    public function __construct()
-    {
-        $auth = session('auth');
-        if (!$auth){
-            return redirect('login');
-        }
-    }
 
     public function index()
     {
