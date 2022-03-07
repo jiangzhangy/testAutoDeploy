@@ -1,6 +1,8 @@
 @font-face {
-  font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1646377395785') format('truetype');
+  font-family: "iconfont"; /* Project id 3221254 */
+  src: url('iconfont.woff2?t=1646618302544') format('woff2'),
+       url('iconfont.woff?t=1646618302544') format('woff'),
+       url('iconfont.ttf?t=1646618302544') format('truetype');
 }
 
 .iconfont {
@@ -11,15 +13,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-logout:before {
+  content: "\e637";
+}
+
+.icon-fenlei:before {
+  content: "\e621";
+}
+
 .icon-my:before {
   content: "\e608";
 }
 
 .icon-book-open:before {
   content: "\e606";
-}
-
-.icon-fenlei:before {
-  content: "\e61e";
 }
 

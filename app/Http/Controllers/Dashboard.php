@@ -6,39 +6,31 @@ use Illuminate\Http\Request;
 
 class Dashboard extends Controller
 {
-    public function index()
+    public function __construct()
     {
         $auth = session('auth');
         if (!$auth){
             return redirect('login');
         }
-        return view('pages.dashboard.dashboard');
+    }
+
+    public function index()
+    {
+        return view('pages.dashboard.help');
     }
 
     public function account()
     {
-        $auth = session('auth');
-        if (!$auth){
-            return redirect('login');
-        }
         return view('pages.dashboard.account');
     }
 
     public function help()
     {
-        $auth = session('auth');
-        if (!$auth){
-            return redirect('login');
-        }
         return view('pages.dashboard.help');
     }
 
     public function products()
     {
-        $auth = session('auth');
-        if (!$auth){
-            return redirect('login');
-        }
         return view('pages.dashboard.products');
     }
 }

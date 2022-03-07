@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 // 登录页面
 Route::get('/login', [\App\Http\Controllers\Authorization::class, 'login'])->name('login');
+// 登出
+Route::get('/logout', [\App\Http\Controllers\Authorization::class, 'logout'])->name('logout');
 // 个人后台页面
 Route::get('/dashboard', [\App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
 // 个人中心

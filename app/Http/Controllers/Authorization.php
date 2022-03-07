@@ -28,4 +28,10 @@ class Authorization extends Controller
         }
         return view('pages.auth.login');
     }
+
+    public function logout()
+    {
+        session()->invalidate();
+        return redirect('login');
+    }
 }
