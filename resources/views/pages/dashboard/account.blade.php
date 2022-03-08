@@ -8,4 +8,9 @@
     <x-slot name="content">
         <livewire:dashboard.account/>
     </x-slot>
+    <x-slot name="layer">
+        <div class="hidden" x-ref="layer">
+            <livewire:dashboard.layer.account/>
+        </div>
+    </x-slot>
 </x-dashboard-layout>

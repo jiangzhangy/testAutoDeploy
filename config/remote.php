@@ -6,4 +6,6 @@ return [
     'phone_login_uri' => env('PHONE_LOGIN_URI'),
     'get_user_by_openid_uri' => env('GET_USER_BY_OPENID_URI'),
     'bound_wechat_phone_uri' => env('BOUND_WECHAT_PHONE_URI'),
+    'update_username_uri' => env('UPDATE_USERNAME_URI'),
+    'get_user_info_uri' => env('GET_USER_INFO_URI'),
 ];

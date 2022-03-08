@@ -17,13 +17,14 @@
     {{ $style ?? '' }}
     <title>{{ $title ?? env('APP_NAME') }}</title>
     @livewireStyles
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    @livewireScripts
 </head>
 <body>
     {{ $header ?? '' }}
     {{ $main ?? '' }}
     {{ $footer ?? '' }}
     {{ $script ?? '' }}
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    @livewireScripts
 </body>
 </html>

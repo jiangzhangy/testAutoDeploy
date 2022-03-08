@@ -79,13 +79,48 @@ class RequestApi
         }
     }
 
+    /**
+     * 微信和电话账户绑定
+     * @param $openid
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function boundWechatPhone($openid)
     {
-        $auth = session('auth');
-        $token = $auth['accessToken'];
         try
         {
-            return $this->client->request('GET', config('remote.bound_wechat_phone_uri'), ['query' => ['openID' => $openid], 'headers' => ['Authorization' => 'bearer' . $token]]);
+            return $this->client->request('GET', config('remote.bound_wechat_phone_uri'), ['query' => ['openID' => $openid], 'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']]]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    /**
+     * 更新用户名
+     * @param $newName
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function updateUsername($newName)
+    {
+        try
+        {
+            return $this->client->request('POST', config('remote.update_username_uri'), ['query' => ['newName' => $newName], 'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']]]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    /**
+     * 获取用户信息
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUserInfo()
+    {
+        try
+        {
+            return $this->client->request('GET', config('remote.get_user_info_uri'), ['headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']]]);
         }catch (\Exception $exception){
             return false;
         }
