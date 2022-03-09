@@ -4,11 +4,14 @@ namespace App\Http\Livewire\Dashboard\Layer;
 
 use App\Models\RequestApi;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Account extends Component
 {
+    use WithFileUploads;
     public $nickName = '';
     public $QRUrl;
+    public $avatar;
 
     public function mount()
     {
@@ -35,6 +38,11 @@ class Account extends Component
         $this->userInfo = json_decode($res->getBody()->getContents(), true)['data'];
         session(['userInfo' => $this->userInfo]);
         return redirect()->route('dashboard-account');
+    }
+
+    public function saveAvatar()
+    {
+        
     }
 
     /*public function getBoundWechatQR()

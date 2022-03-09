@@ -30,5 +30,33 @@
                 <span class="mt-4"><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1"></span> 微信扫码即可登录</span>
             </div>
         </div>
+        <div x-show="showEditAvatar" x-data="{
+           changed(event){
+                reader = new FileReader()
+                reader.readAsDataURL(event.target.files[0])
+                reader.onload = (e)=>{
+                    $refs.avatar.src = e.target.result
+                }
+           },
+        }">
+            <h1 class="mt-9 text-lg font-bold">修改头像</h1>
+            <div class="border border-white m-5 rounded">
+                <img class="w-[300px] h-[300px]" x-ref="avatar" src="{{ $userInfo['localheadurl'] ?? asset('images/backend/icon_Defaultavatar_100.png') }}" alt="qr">
+            </div>
+            <p class="text-[#64666B] text-sm">仅支持 JPG、PNG 格式的图片</p>
+            <div class="my-7">
+                <form wire:submit.prevent="saveAvatar" class="flex justify-between">
+                    <div class="w-[80px] h-[34px] border border-[#ACAFB5] rounded text-sm text-[#64666B] overflow-hidden relative ">
+                        <div class="my-1.5 ml-[11px]">选择图片</div>
+                        <input accept="image/*" class="absolute top-0 text-lg opacity-0" type="file" @change="changed">
+                    </div>
+                    @error('photo') <span class="error">{{ $message }}</span> @enderror
+                    <div>
+                        <button @click="$refs.layer.style.display = 'none'" class="text-sm text-[#64666B] w-[80px] h-[34px] border border-[#ACAFB5] rounded mr-2 cursor-pointer">取消</button>
+                        <button type="submit" class="text-sm text-white w-[80px] h-[34px] border border-[#ACAFB5] rounded bg-[#3481F6] cursor-pointer">确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

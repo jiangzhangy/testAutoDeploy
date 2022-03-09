@@ -2,8 +2,16 @@
 
    <div class="w-[800px] h-[254px] border border-[#E1E3E6]">
       <div class="flex flex-row justify-between items-center m-10">
-         <div class="flex items-center">
-            <img class="h-25 w-25 " src="{{ asset('images/backend/icon_Defaultavatar_100.png') }}" alt="avatar">
+         <div class="flex items-center" x-data="{
+
+         }">
+            <div class="h-[100px] w-[100px] cursor-pointer relative "
+                 @mouseover="$refs.editAvatar.style.display = 'block'"
+                 @mouseleave="$refs.editAvatar.style.display = 'none'"
+            >
+               <img class="h-25 w-25" src="{{ $userInfo['localheadurl'] ?? asset('images/backend/icon_Defaultavatar_100.png') }}" alt="avatar">
+               <div x-ref="editAvatar" class="absolute h-[100px] w-[100px] bg-[#03080F] opacity-50 border rounded-full text-center text-white leading-[100px] top-0 hidden" @click="changShowLayer('showEditAvatar')">修改</div>
+            </div>
             <div class="ml-[30px]">
                <h2 class="text-lg font-bold text-[#202123]">{{ $userInfo['nickname'] }}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditName')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span>
