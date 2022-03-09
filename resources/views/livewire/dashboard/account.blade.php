@@ -5,18 +5,25 @@
          <div class="flex items-center">
             <img class="h-25 w-25 " src="{{ asset('images/backend/icon_Defaultavatar_100.png') }}" alt="avatar">
             <div class="ml-[30px]">
-               <h2 class="text-lg font-bold text-[#202123]">{{ $user['nickname'] }}
+               <h2 class="text-lg font-bold text-[#202123]">{{ $userInfo['nickname'] }}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditName')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span>
                </h2>
-               <p class="text-sm text-[#64666B] mt-6">{{ substr($user['account'], 0, 2) . '*****' . substr($user['account'], -4)}}</p>
+               <p class="text-sm text-[#64666B] mt-6">{{ substr($userInfo['account'], 0, 2) . '*****' . substr($userInfo['account'], -4)}}</p>
             </div>
          </div>
-         <span class="text-sm text-[#ACAFB5]">已使用傲梅服务 {{ now()->diffInDays(\Carbon\Carbon::createFromTimeStamp($user['create_time'] / 1000)->toDateTimeString()) }} 天</span>
+         <span class="text-sm text-[#ACAFB5]">已使用傲梅服务 {{ now()->diffInDays(\Carbon\Carbon::createFromTimeStamp($userInfo['creattime'] / 1000)->toDateTimeString()) }} 天</span>
       </div>
-      <div class="w-[218px] h-[34px] m-10  border border-[#ACAFB5] flex justify-center items-center cursor-pointer" @click="changShowLayer('showBoundWechat')">
-         <img class="h-[19px]" src="{{ asset('images/backend/icon_bt_wechatbind_normal.png') }}" alt="">
-         <p class="text-[#64666B] text-sm ml-2">绑定微信，扫码登录更方便</p>
-      </div>
+      @if($userInfo['wxdetails'] === null)
+         <div class="w-[218px] h-[34px] m-10  border border-[#ACAFB5] flex justify-center items-center cursor-pointer" @click="changShowLayer('showBoundWechat')">
+            <img class="h-[19px]" src="{{ asset('images/backend/icon_bt_wechatbind_normal.png') }}" alt="">
+            <p class="text-[#64666B] text-sm ml-2">绑定微信，扫码登录更方便</p>
+         </div>
+      @else
+         <div class="w-[218px] h-[34px] -ml-3 flex justify-center items-center cursor-pointer" @click="changShowLayer('showBoundWechat')">
+            <img class="h-[19px]" src="{{ asset('images/backend/icon_bt_wechatbind_normal.png') }}" alt="wx">
+            <p class="text-[#64666B] text-sm ml-2">微信号: {{ $userInfo['wxdetails']['nickname'] }}</p>
+         </div>
+      @endif
    </div>
 
    <div class="mt-11">

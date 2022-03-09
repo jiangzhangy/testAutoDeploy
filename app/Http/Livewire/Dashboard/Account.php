@@ -2,15 +2,19 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\RequestApi;
 use Livewire\Component;
 
 class Account extends Component
 {
-    public $user;
+    public $userInfo;
 
     public function mount()
     {
-        $this->user = session('auth');
+        $client = new RequestApi();
+        $res = $client->getUserInfo();
+        $this->userInfo = json_decode($res->getBody()->getContents(), true)['data'];
+        session(['userInfo' => $this->userInfo]);
     }
     public function render()
     {

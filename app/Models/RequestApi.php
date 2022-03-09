@@ -125,4 +125,14 @@ class RequestApi
             return false;
         }
     }
+
+    public function phoneBoundWechat()
+    {
+        try
+        {
+            return $this->client->request('GET', config('remote.phone_bound_wechat_uri'), ['headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']]]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
 }
