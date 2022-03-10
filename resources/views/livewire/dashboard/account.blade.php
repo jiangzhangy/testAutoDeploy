@@ -27,9 +27,9 @@
             <p class="text-[#64666B] text-sm ml-2">绑定微信，扫码登录更方便</p>
          </div>
       @else
-         <div class="w-[218px] h-[34px] -ml-3 flex justify-center items-center cursor-pointer" @click="changShowLayer('showBoundWechat')">
+         <div class="w-[218px] h-[34px] -ml-3 flex justify-center items-center">
             <img class="h-[19px]" src="{{ asset('images/backend/icon_bt_wechatbind_normal.png') }}" alt="wx">
-            <p class="text-[#64666B] text-sm ml-2">微信号: {{ $userInfo['wxdetails']['nickname'] }}</p>
+            <p class="text-[#64666B] text-sm ml-2">微信号: {{ (json_decode(($this->userInfo)['wxdetails'], true))['nickname'] }}</p>
          </div>
       @endif
    </div>

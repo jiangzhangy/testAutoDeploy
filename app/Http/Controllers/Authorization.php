@@ -7,13 +7,22 @@ use Illuminate\Http\Request;
 
 class Authorization extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request, RequestApi $client)
     {
-        if (session('auth')){
-            return redirect('dashboard');
+        if ($request->input('openid') && !$request->input('redirect')){
+            // 携带参数跳转
+            return view('redirect', ['uri' => url()->full()]);
         }
+        // 已经登录
+        if (session('auth')){
+            if ($request->input('openid')){
+                $client->boundWechatPhone($request->input('openid'));
+                return redirect()->route('dashboard-account');
+            }
+            return redirect()->route('dashboard-account');
+        }
+        // 微信扫码登录
         if ($request->input('openid')) {
-            $client = new RequestApi();
             $res = $client->getUserByOpenid($request->input('openid'));
             if ($res !== false){
                 $resArr = json_decode($res->getBody()->getContents(), true);

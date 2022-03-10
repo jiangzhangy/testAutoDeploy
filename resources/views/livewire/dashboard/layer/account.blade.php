@@ -21,8 +21,24 @@
         </div>
         <div x-show="showBoundWechat">
             <h1 class="mt-9 text-lg font-bold">绑定微信</h1>
-            <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]">
-                <img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">
+            <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]" x-data="{
+                init(){
+                    new WxLogin({
+                    self_redirect:true,
+                    id:'code',
+                    appid: 'wxd4ac8a5fc03e9cd4',
+                    scope: 'snsapi_login',
+                    redirect_uri: 'http://491833ii87.zicp.vip/api/user/weixinconnect',
+                    state: 'F2342B820364DD36D546A23EEFB57065274A18D0653F860C45728C0FD4CBC762',
+                    style: 'white',
+                    //href: 'LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9IA==',
+                    href: 'data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDE5NXB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7ZGlzcGxheTogbm9uZTt9DQouc3RhdHVzX2ljb24ge2Rpc3BsYXk6IGJsb2NrfQ0KLmltcG93ZXJCb3ggLnN0YXR1cyB7dGV4dC1hbGlnbjogY2VudGVyO30gDQoub2xkLXRlbXBsYXRle21hcmdpbi1sZWZ0OiAtMTA1cHg7bWFyZ2luLXRvcDogLTE2cHg7fQ=='
+                    });
+                        }
+            }">
+                {{--<img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">--}}
+                <div class="w-[195px] h-[186px]" id="code"></div>
+                {{--<iframe class="w-[195px] h-[186px]" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $QRUrl }}"></iframe>--}}
             </div>
             <div class="text-sm text-[#64666B] text-center">微信扫描二维码绑定</div>
             <div class="text-sm text-[#202123] flex flex-col mt-10 mb-5">

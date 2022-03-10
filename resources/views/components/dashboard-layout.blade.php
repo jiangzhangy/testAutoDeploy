@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{{ asset('css/icons/iconfont.css') }}">
     </x-slot>
     <x-slot name="script">
+        <script src="{{ asset('js/wechatLogin.js') }}"></script>
     </x-slot>
     <x-slot name="main">
         <div x-data="{

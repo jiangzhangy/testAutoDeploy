@@ -16,7 +16,7 @@ class Account extends Component
     public function mount()
     {
         $client = new RequestApi();
-        $res = $client->phoneBoundWechat();
+        $res = $client->accessWeichatLoginUrl();
         $this->QRUrl = json_decode($res->getBody()->getContents(), true)['data'];
     }
     public function render()
