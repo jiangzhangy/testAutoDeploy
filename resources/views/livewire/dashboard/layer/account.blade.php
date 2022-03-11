@@ -19,9 +19,10 @@
                 <button class="w-[120px] h-[34px] mt-[30px] bg-[#3481F6] text-white text-white border border-[#ACAFB5] rounded text-sm" @click="submit('editName')">确定</button>
             </div>
         </div>
+        @if($userInfo['wxdetails'] === null)
         <div x-show="showBoundWechat">
-            <h1 class="mt-9 text-lg font-bold">绑定微信</h1>
-            <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]" x-data="{
+                <h1 class="mt-9 text-lg font-bold">绑定微信</h1>
+                <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]" x-data="{
                 init(){
                     new WxLogin({
                     self_redirect:true,
@@ -36,16 +37,17 @@
                     });
                         }
             }">
-                {{--<img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">--}}
-                <div class="w-[195px] h-[186px]" id="code"></div>
-                {{--<iframe class="w-[195px] h-[186px]" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $QRUrl }}"></iframe>--}}
+                    {{--<img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">--}}
+                    <div class="w-[195px] h-[186px]" id="code"></div>
+                    {{--<iframe class="w-[195px] h-[186px]" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $QRUrl }}"></iframe>--}}
+                </div>
+                <div class="text-sm text-[#64666B] text-center">微信扫描二维码绑定</div>
+                <div class="text-sm text-[#202123] flex flex-col mt-10 mb-5">
+                    <span><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1 mb-4"></span> 绑定微信后，可实时收到公众号消息</span>
+                    <span class="mt-4"><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1"></span> 微信扫码即可登录</span>
+                </div>
             </div>
-            <div class="text-sm text-[#64666B] text-center">微信扫描二维码绑定</div>
-            <div class="text-sm text-[#202123] flex flex-col mt-10 mb-5">
-                <span><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1 mb-4"></span> 绑定微信后，可实时收到公众号消息</span>
-                <span class="mt-4"><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1"></span> 微信扫码即可登录</span>
-            </div>
-        </div>
+        @endif
         <div x-show="showEditAvatar" x-data="{
            changed(event){
                 reader = new FileReader()

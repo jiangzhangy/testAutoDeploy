@@ -11,10 +11,7 @@ class Account extends Component
 
     public function mount()
     {
-        $client = new RequestApi();
-        $res = $client->getUserInfo();
-        $this->userInfo = json_decode($res->getBody()->getContents(), true)['data'];
-        session(['userInfo' => $this->userInfo]);
+        $this->userInfo =  session('userInfo');
     }
     public function render()
     {

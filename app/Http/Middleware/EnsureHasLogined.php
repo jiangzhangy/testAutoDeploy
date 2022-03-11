@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\RequestApi;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,9 @@ class EnsureHasLogined
         if (!session('auth')){
             return redirect('login');
         }
+        $client = new RequestApi();
+        $res = $client->getUserInfo();
+        session(['userInfo' => json_decode($res->getBody()->getContents(), true)['data']]);
         return $next($request);
     }
 }

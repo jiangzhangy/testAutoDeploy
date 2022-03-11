@@ -12,9 +12,11 @@ class Account extends Component
     public $nickName = '';
     public $QRUrl;
     public $avatar;
+    public $userInfo;
 
     public function mount()
     {
+        $this->userInfo = session('userInfo');
         $client = new RequestApi();
         $res = $client->accessWeichatLoginUrl();
         $this->QRUrl = json_decode($res->getBody()->getContents(), true)['data'];
