@@ -4,6 +4,11 @@
     </x-slot>
     <x-slot name="style">
         <link rel="stylesheet" href="{{ asset('css/icons/iconfont.css') }}">
+        <style>
+            [x-cloak] {
+                display: none;
+            }
+        </style>
     </x-slot>
     <x-slot name="script">
         <script src="{{ asset('js/wechatLogin.js') }}"></script>
