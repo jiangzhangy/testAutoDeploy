@@ -5,6 +5,7 @@
     showBound: false,
     showBoundInfo: false,
     showBuy: false,
+    payMethod: 2,
     data: {},
     // 获取对应产品信息
     getInfo(id){
@@ -27,14 +28,10 @@
         });
     },
     // 购买对应产品
-    buy(id){
+    buy(productId){
         this.showModal = true
-        this.showBuy = true
-        $wire.getProductInfo(id).then(result => {
-            this.data = JSON.parse(result)
-            this.showLoader = false
-            this.showBuy = true
-        });
+        this.showLoader = true
+        this.changePayMethod(productId, 1)
     },
     closeDialog(){
         Object.getOwnPropertyNames(this).forEach((key)=>{
@@ -42,6 +39,43 @@
                         this[key] = false
                     }
                 });
+    },
+    unChecked: '../images/backend/icon_radio_unchecked.png',
+    checked: '../images/backend/icon_radio_check.png',
+    src1: this.unChecked,
+    src2: this.unChecked,
+    text1: '',
+    text2: '',
+    codeFigure: '',
+    qrImage: '../images/backend/icon_QR_code_WeChat.png',
+    changePayMethod(productId, payMethod){
+        $wire.goPay(productId, payMethod).then(result => {
+            if (payMethod === 1){
+                this.qrImage = '../images/backend/icon_QR_code_WeChat.png'
+                this.src1 = this.checked
+                this.src2 = this.unChecked
+                this.text1 = 'text-[#1C6FFF]'
+                this.text2 = ''
+            }else{
+                this.qrImage = '../images/backend/icon_QR_code_Alipay.png'
+                this.src1 = this.unChecked
+                this.src2 = this.checked
+                this.text2 = 'text-[#1C6FFF]'
+                this.text1 = ''
+            }
+            this.data = JSON.parse(result)
+            if (this.data.code === 200){
+                $refs.code.appendChild(new araleQRCode({
+                    'render': 'svg',
+                    'text': this.data.data.content,
+                    'size': '140',
+                    'image': this.qrImage,
+                    'imageSize': 30
+                }))
+            }
+            this.showLoader = false
+            this.showBuy = true
+        });
     }
 
 }">
@@ -149,7 +183,7 @@
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(1)">购买</button>
+                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(1,2)">购买</button>
                 </div>
             </div>
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
@@ -341,22 +375,31 @@
                 </div>
                 <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
             </div>
-            <div class="" x-show="false">
+            <div class="" x-show="true">
                 <div class="text-sm flex flex-col justify-center items-center mt-8 mb-8">
                     <p>扫码支付</p>
-                    <img class="w-[140px] mt-6" src="{{ asset('images/buy.png') }}" alt="">
-                    <div class="mt-6 flex flex-row text-xs text-[#64666B]">
-                        <p class="mr-5"><img class="inline" src="{{ asset('images/backend/icon_pay_WeChat_20.png') }}" alt=""> 微信扫码支付</p>
-                        <p><img class="inline" src="{{ asset('images/backend/icon_pay_Alipay_20.png') }}" alt=""> 支付宝扫码支付</p>
+                    <div class="w-[420px] h-[200px] border border-[#D4D6D9] p-5 flex flex-row justify-between text-xs rounded-lg">
+                        <div class="flex flex-col justify-center items-center">
+                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(1, 1)">
+                                <img :src="src1" alt="">
+                                <img class="ml-3" src="{{ asset('images/backend/icon_pay_WeChat_20.png') }}" alt="">
+                                <span class="ml-1" :class="text1">微信扫码支付</span></div>
+                            <div class="w-[200px] h-[1px] border border-[#EDEFF2] my-3"></div>
+                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(1, 2)")>
+                                <img class="ml-[7px]" :src="src2" alt="">
+                                <img class="ml-3" src="{{ asset('images/backend/icon_pay_Alipay_20.png') }}" alt="">
+                                <span class="ml-1" :class="text2">支付宝扫码支付</span></div>
+                        </div>
+                        <div x-ref="code">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center items-center mt-12" x-show="true">
+            <div class="flex flex-col justify-center items-center mt-12" x-show="false">
                 <img src="{{ asset('images/backend/icon_buy_success.png') }}" alt="">
                 <p class="text-[26px] mt-6">购买成功</p>
                 <span class="text-sm text-[#64666B] my-6">购买信息请到《个人中心》我的产品<a class="text-[#3481F6]" href=""> 查看 >></a></span>
             </div>
-            <hr>
             <div class="mt-6 flex justify-center">
                 <p class="text-sm text-[#ACAFB5]">同意并接受<a href="" class="text-[#3481F6]">《傲梅会员服务条款》</a></p>
             </div>

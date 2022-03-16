@@ -535,6 +535,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -670,6 +674,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-12 {
   margin-top: 3rem;
 }
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+.mt-0 {
+  margin-top: 0px;
+}
+.ml-5 {
+  margin-left: 1.25rem;
+}
+.ml-\[27px\] {
+  margin-left: 27px;
+}
+.ml-\[7px\] {
+  margin-left: 7px;
+}
 .block {
   display: block;
 }
@@ -772,6 +791,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-\[120px\] {
   height: 120px;
 }
+.h-\[\] {
+  height: ;
+}
+.h-\[1px\] {
+  height: 1px;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -861,6 +886,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-\[140px\] {
   width: 140px;
+}
+.w-\[\] {
+  width: ;
+}
+.w-\[360px\] {
+  width: 360px;
 }
 .max-w-6xl {
   max-width: 72rem;
@@ -997,6 +1028,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-\[\#D4D6D9\] {
   --tw-border-opacity: 1;
   border-color: rgb(212 214 217 / var(--tw-border-opacity));
+}
+.border-\[\#EDEFF2\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(237 239 242 / var(--tw-border-opacity));
 }
 .border-x-white {
   --tw-border-opacity: 1;
@@ -1355,6 +1390,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+.text-\[\#1C6FFF\] {
+  --tw-text-opacity: 1;
+  color: rgb(28 111 255 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1430,6 +1469,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-\[\#D6E7FF\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(214 231 255 / var(--tw-bg-opacity));
+}
+.hover\:bg-\[\#e8f0fc\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 240 252 / var(--tw-bg-opacity));
 }
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
