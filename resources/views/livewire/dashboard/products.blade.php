@@ -28,17 +28,21 @@
         });
     },
     // 购买对应产品
-    buy(productId){
+    buy(productId, payMethod){
         this.showModal = true
         this.showLoader = true
-        this.changePayMethod(productId, 1)
+        this.paying = true
+        this.paid = false
+        this.changePayMethod(productId, payMethod)
+        clearInterval(this.positionTimer)
+        this.queryOrderState()
     },
     closeDialog(){
         Object.getOwnPropertyNames(this).forEach((key)=>{
-                    if (typeof(this[key]) === 'boolean'){
-                        this[key] = false
-                    }
-                });
+            if (typeof(this[key]) === 'boolean'){
+                this[key] = false
+            }
+        });
     },
     unChecked: '../images/backend/icon_radio_unchecked.png',
     checked: '../images/backend/icon_radio_check.png',
@@ -48,9 +52,11 @@
     text2: '',
     codeFigure: '',
     qrImage: '../images/backend/icon_QR_code_WeChat.png',
+    paying: true,
+    paid: false,
     changePayMethod(productId, payMethod){
         $wire.goPay(productId, payMethod).then(result => {
-            if (payMethod === 1){
+            if (payMethod === 2){
                 this.qrImage = '../images/backend/icon_QR_code_WeChat.png'
                 this.src1 = this.checked
                 this.src2 = this.unChecked
@@ -65,6 +71,7 @@
             }
             this.data = JSON.parse(result)
             if (this.data.code === 200){
+                $refs.code.removeChild($refs.code.firstChild)
                 $refs.code.appendChild(new araleQRCode({
                     'render': 'svg',
                     'text': this.data.data.content,
@@ -76,6 +83,25 @@
             this.showLoader = false
             this.showBuy = true
         });
+    },
+    // 查询
+    queryOrderState(){
+        const that = this;
+        that.positionTimer = setInterval(function (){
+            $wire.queryOrderState().then(result => {
+                res = JSON.parse(result)
+                console.log(res)
+                if (res.code === 200){
+                    that.paySuccess(res.data.order_no);
+                }
+            })
+        }, 3000)
+    },
+    // 支付成功
+    paySuccess(order_no){
+        clearInterval(this.positionTimer)
+        this.paying = false
+        this.paid = true
     }
 
 }">
@@ -183,7 +209,7 @@
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(1,2)">购买</button>
+                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
                 </div>
             </div>
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
@@ -345,7 +371,7 @@
 
 
         </div>
-        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBuy" @click.away="closeDialog()">
+        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBuy" @click.away="closeDialog()" wire:ignore>
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">
@@ -375,17 +401,17 @@
                 </div>
                 <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
             </div>
-            <div class="" x-show="true">
+            <div class="" x-show="paying">
                 <div class="text-sm flex flex-col justify-center items-center mt-8 mb-8">
                     <p>扫码支付</p>
                     <div class="w-[420px] h-[200px] border border-[#D4D6D9] p-5 flex flex-row justify-between text-xs rounded-lg">
                         <div class="flex flex-col justify-center items-center">
-                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(1, 1)">
+                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(9, 2)">
                                 <img :src="src1" alt="">
                                 <img class="ml-3" src="{{ asset('images/backend/icon_pay_WeChat_20.png') }}" alt="">
                                 <span class="ml-1" :class="text1">微信扫码支付</span></div>
                             <div class="w-[200px] h-[1px] border border-[#EDEFF2] my-3"></div>
-                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(1, 2)")>
+                            <div class="w-[200px] h-[40px] cursor-pointer flex justify-center items-center hover:bg-[#e8f0fc]" @click="changePayMethod(9, 1)")>
                                 <img class="ml-[7px]" :src="src2" alt="">
                                 <img class="ml-3" src="{{ asset('images/backend/icon_pay_Alipay_20.png') }}" alt="">
                                 <span class="ml-1" :class="text2">支付宝扫码支付</span></div>
@@ -395,7 +421,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center items-center mt-12" x-show="false">
+            <div class="flex flex-col justify-center items-center mt-12" x-show="paid">
                 <img src="{{ asset('images/backend/icon_buy_success.png') }}" alt="">
                 <p class="text-[26px] mt-6">购买成功</p>
                 <span class="text-sm text-[#64666B] my-6">购买信息请到《个人中心》我的产品<a class="text-[#3481F6]" href=""> 查看 >></a></span>

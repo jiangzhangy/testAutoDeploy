@@ -10,5 +10,6 @@ return [
     'get_user_info_uri' => env('GET_USER_INFO_URI'),
     'phone_bound_wechat_uri' => env('PHONE_BOUND_WECHAT_URI'),
     'get_order_qr_uri' => env('GET_ORDER_QR_URI'),
-    'api_pay_host' => env('API_PAY_HOST')
+    'api_pay_host' => env('API_PAY_HOST'),
+    'get_orders_state_uri' => env('GET_ORDERS_STATE_URI')
 ];

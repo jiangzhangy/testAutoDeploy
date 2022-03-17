@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class Products extends Component
 {
+    public $orderNumbers = ['2021090216163043779289161'];
     public function render()
     {
         return view('livewire.dashboard.products');
@@ -33,24 +34,31 @@ class Products extends Component
        return json_encode($data[$id]);
     }
 
-    public function goPay($id, $payMethod)
+    public function goPay($productId, $payMethod)
     {
-        return '{
-	"code": 200,
-	"msg": "成功!",
-	"data": {
-		"out_trade_no": "2022031419234172016968151",
-		"content": "weixin://wxpay/bizpayurl?pr=eunJ0Rqzz",
-		"pay_method": 2
-	}
-}';
         $client = new PaymentSystemApi();
-        $res = $client->createOrder(1,2);
+        $res = $client->createOrder($productId, $payMethod);
         if (!$res){
             return json_encode([
                 'code' => 500,
                 'msg'   => 'error',
                 'data' => '',
+            ]);
+        }
+        $data = json_decode($res->getBody()->getContents(), true);
+        $this->orderNumbers[] = $data['data']['out_trade_no'];
+        return json_encode($data);
+    }
+
+    public function queryOrderState()
+    {
+        $client = new PaymentSystemApi();
+        $res = $client->queryOrder($this->orderNumbers);
+        if (!$res){
+            return json_encode([
+                'code' => 500,
+                'msg'   => 'error',
+                'data'  => []
             ]);
         }
         return $res->getBody()->getContents();
