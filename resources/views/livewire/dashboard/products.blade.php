@@ -107,100 +107,104 @@
 }">
     <div class="border border-b-[#D1D6DF] border-x-white border-t-white">
         <p class="text-sm text-[#202123] ml-10">已获 VIP 权限产品</p>
-        <div class="pb-10 flex flex-wrap">
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                    <div class="px-5 flex flex-col ml-2">
-                        <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                        </div>
-                        <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getBoundInfo(1)">绑定设备信息</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getInfo(1)">查看详情</button>
-                </div>
-            </div>
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                    <div class="px-5 flex flex-col ml-2">
-                        <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                        </div>
-                        <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+        @if(!session('userInfo')['productdetails'])
+            <p class="text-sm text-[#202123] ml-10 font-bold py-10">无</p>
+        @else
+            <div class="pb-10 flex flex-wrap">
+                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+                    <div class="px-11 py-9 flex flex-row justify-end ">
+                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                        <div class="px-5 flex flex-col ml-2">
+                            <div class="flex flex-row items-center">
+                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
+                            </div>
+                            <div class="text-sm text-white opacity-60 pt-3">
+                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
-                </div>
-            </div>
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                    <div class="px-5 flex flex-col ml-2">
-                        <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                        </div>
-                        <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
-                        </div>
+                    <div class="flex justify-around px-1">
+                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getBoundInfo(1)">绑定设备信息</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getInfo(1)">查看详情</button>
                     </div>
                 </div>
-                <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
-                </div>
-            </div>
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                    <div class="px-5 flex flex-col ml-2">
-                        <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                        </div>
-                        <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+                    <div class="px-11 py-9 flex flex-row justify-end ">
+                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                        <div class="px-5 flex flex-col ml-2">
+                            <div class="flex flex-row items-center">
+                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
+                            </div>
+                            <div class="text-sm text-white opacity-60 pt-3">
+                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            </div>
                         </div>
                     </div>
+                    <div class="flex justify-around px-1">
+                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
+                    </div>
                 </div>
-                <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
+                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+                    <div class="px-11 py-9 flex flex-row justify-end ">
+                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                        <div class="px-5 flex flex-col ml-2">
+                            <div class="flex flex-row items-center">
+                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
+                            </div>
+                            <div class="text-sm text-white opacity-60 pt-3">
+                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-around px-1">
+                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
+                    </div>
+                </div>
+                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+                    <div class="px-11 py-9 flex flex-row justify-end ">
+                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                        <div class="px-5 flex flex-col ml-2">
+                            <div class="flex flex-row items-center">
+                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
+                            </div>
+                            <div class="text-sm text-white opacity-60 pt-3">
+                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-around px-1">
+                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
-    <div class="border border-b-[#D1D6DF] border-x-white border-t-white">
-        <p class="text-sm text-[#202123] ml-10">其他</p>
+    <div class="border border-b-[#D1D6DF] border-x-white border-t-white mt-10">
+        <p class="text-sm text-[#202123] ml-10 -mb-5">其他产品</p>
         <div class="pb-10 flex flex-wrap">
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
                 <div class="px-11 py-9 flex flex-row justify-end ">
                     <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
                     <div class="px-5 flex flex-col ml-2">
                         <div class="flex flex-row items-center">
                             <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
+                            {{--<div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>--}}
                         </div>
                         <div class="text-sm text-white opacity-60 pt-3">
                             支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
@@ -212,23 +216,71 @@
                     <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
                 </div>
             </div>
-            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
+            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_pa.png') }})">
                 <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_pa.png') }}" alt="">
                     <div class="px-5 flex flex-col ml-2">
                         <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 ">终身版</div>
+                            <h2 class="text-lg text-white font-bold">傲梅分区助手</h2>
                         </div>
                         <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            免费的磁盘分区软件，C 盘扩容、迁移系统等。
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
                     <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="showModal = true; showBound = true">绑定序列码</button>
+                </div>
+            </div>
+            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ar_pc.png') }})">
+                <div class="px-11 py-9 flex flex-row justify-end ">
+                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_arpc_2.png') }}" alt="">
+                    <div class="px-5 flex flex-col ml-2">
+                        <div class="flex flex-row items-center">
+                            <h2 class="text-lg text-white font-bold">傲梅数据恢复</h2>
+                        </div>
+                        <div class="text-sm text-white opacity-60 pt-3">
+                            windows 数据恢复软件，轻松帮你恢复丢失数据。
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-around px-1">
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
+                </div>
+            </div>
+            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ar_ios.png') }})">
+                <div class="px-11 py-9 flex flex-row justify-end ">
+                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_arios.png') }}" alt="">
+                    <div class="px-5 flex flex-col ml-2">
+                        <div class="flex flex-row items-center">
+                            <h2 class="text-lg text-white font-bold">傲梅微恢复</h2>
+                        </div>
+                        <div class="text-sm text-white opacity-60 pt-3">
+                            IOS 数据恢复软件，支持 iPhone、iPad 数据恢复。
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-around px-1">
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
+                </div>
+            </div>
+            <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_av.png') }})">
+                <div class="px-11 py-9 flex flex-row justify-end ">
+                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_av.png') }}" alt="">
+                    <div class="px-5 flex flex-col ml-2">
+                        <div class="flex flex-row items-center">
+                            <h2 class="text-lg text-white font-bold">傲梅远程控制</h2>
+                        </div>
+                        <div class="text-sm text-white opacity-60 pt-3">
+                            一款免费的远程控制软件，支持电脑控制电脑、手机控制电脑等。
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-around px-1">
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
                 </div>
             </div>
         </div>

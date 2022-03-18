@@ -135,4 +135,54 @@ class RequestApi
             return false;
         }
     }
+
+    /**
+     * 更新用户头像
+     * @param $fileBody base64 内容
+     * @param $fileName 文件名称
+     * @param $fileSize 文件大小
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function updateAvatar($fileBody, $fileName, $fileSize)
+    {
+        $body = [
+            "fileBody" => $fileBody,
+            "fileName" => $fileName,
+            "fileSize" => $fileSize
+        ];
+        try
+        {
+            return $this->client->request('POST', config('remote.update_avatar_uri'), [
+                'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']],
+                'json' => $body
+            ]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    /**
+     * 更换手机
+     * @param $phone 新手机号
+     * @param $code 验证码
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function updatePhone($phone, $code)
+    {
+        try
+        {
+            return $this->client->request('POST', config('remote.update_phone_uri'), [
+                'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']],
+                'query' => [
+                    'phone' => $phone,
+                    'code'  => $code
+                ]
+            ]);
+        }catch (\Exception $exception){
+            dd($exception->getMessage());
+            return false;
+        }
+    }
 }

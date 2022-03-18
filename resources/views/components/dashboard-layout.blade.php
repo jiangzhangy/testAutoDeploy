@@ -20,6 +20,7 @@
             showEditName: false,
             showBoundWechat: false,
             showEditAvatar: false,
+            showEditPhone: false,
             // 改变展示
             changShowLayer(name){
                 $refs.layer.style.display =  'block';

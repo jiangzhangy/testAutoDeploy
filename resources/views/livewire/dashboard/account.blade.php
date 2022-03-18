@@ -16,7 +16,8 @@
                <h2 class="text-lg font-bold text-[#202123]">{{ $userInfo['nickname'] }}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditName')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span>
                </h2>
-               <p class="text-sm text-[#64666B] mt-6">{{ substr($userInfo['account'], 0, 2) . '*****' . substr($userInfo['account'], -4)}}</p>
+               <p class="text-sm text-[#64666B] mt-6">{{ substr($userInfo['account'], 0, 2) . '*****' . substr($userInfo['account'], -4)}}
+                  <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditPhone')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span></p>
             </div>
          </div>
          <span class="text-sm text-[#ACAFB5]">已使用傲梅服务 {{ now()->diffInDays(\Carbon\Carbon::createFromTimeStamp($userInfo['creattime'] / 1000)->toDateTimeString()) }} 天</span>
