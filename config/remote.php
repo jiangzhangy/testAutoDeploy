@@ -14,4 +14,8 @@ return [
     'get_orders_state_uri' => env('GET_ORDERS_STATE_URI'),
     'update_avatar_uri' => env('UPDATE_AVATAR_URI'),
     'update_phone_uri' => env('UPDATE_PHONE_URI'),
+    'api_auth_host' => env('API_AUTH_REMOTE_HOST'),
+    'auth_user_login' => env('OAUTH_USER_LOGIN'),
+    'update_user_product_uri' => env('UPDATE_USER_PRODUCT_URI'),
+    'unbind_dev' => env('UNBIND_DEV_URI')
 ];

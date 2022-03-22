@@ -8,10 +8,10 @@
     payMethod: 2,
     data: {},
     // 获取对应产品信息
-    getInfo(id){
+    getInfo(type){
         this.showModal = true
         this.showLoader = true
-        $wire.getProductInfo(id).then(result => {
+        $wire.getProductInfo(type).then(result => {
             this.data = JSON.parse(result)
             this.showLoader = false
             this.showInfo = true
@@ -128,67 +128,7 @@
                     <div class="flex justify-around px-1">
                         <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
                         <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getBoundInfo(1)">绑定设备信息</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getInfo(1)">查看详情</button>
-                    </div>
-                </div>
-                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                    <div class="px-11 py-9 flex flex-row justify-end ">
-                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                        <div class="px-5 flex flex-col ml-2">
-                            <div class="flex flex-row items-center">
-                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                            </div>
-                            <div class="text-sm text-white opacity-60 pt-3">
-                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-around px-1">
-                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
-                    </div>
-                </div>
-                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                    <div class="px-11 py-9 flex flex-row justify-end ">
-                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                        <div class="px-5 flex flex-col ml-2">
-                            <div class="flex flex-row items-center">
-                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                            </div>
-                            <div class="text-sm text-white opacity-60 pt-3">
-                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-around px-1">
-                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
-                    </div>
-                </div>
-                <div class="w-[420px] h-[200px] rounded-md ml-10 mt-5" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                    <div class="px-11 py-9 flex flex-row justify-end ">
-                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                        <div class="px-5 flex flex-col ml-2">
-                            <div class="flex flex-row items-center">
-                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
-                            </div>
-                            <div class="text-sm text-white opacity-60 pt-3">
-                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-around px-1">
-                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">绑定设备信息</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white">查看详情</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getInfo('AB')">查看详情</button>
                     </div>
                 </div>
             </div>
@@ -197,25 +137,28 @@
     <div class="border border-b-[#D1D6DF] border-x-white border-t-white mt-10">
         <p class="text-sm text-[#202123] ml-10 -mb-5">其他产品</p>
         <div class="pb-10 flex flex-wrap">
+            @if(!session('userInfo')['productdetails'])
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ab.png') }})">
-                <div class="px-11 py-9 flex flex-row justify-end ">
-                    <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
-                    <div class="px-5 flex flex-col ml-2">
-                        <div class="flex flex-row items-center">
-                            <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
-                            {{--<div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
-                            <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>--}}
-                        </div>
-                        <div class="text-sm text-white opacity-60 pt-3">
-                            支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                    <div class="px-11 py-9 flex flex-row justify-end ">
+                        <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_ab.png') }}" alt="">
+                        <div class="px-5 flex flex-col ml-2">
+                            <div class="flex flex-row items-center">
+                                <h2 class="text-lg text-white font-bold">傲梅轻松备份</h2>
+                                {{--<div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 mx-3" style="background-image: url({{ asset('images/backend/bg_Label_vip.png')}})">vip</div>
+                                <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>--}}
+                            </div>
+                            <div class="text-sm text-white opacity-60 pt-3">
+                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                            </div>
                         </div>
                     </div>
+                    <div class="flex justify-around px-1">
+                        <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="showModal = true; showBound = true">绑定序列码</button>
+                        <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
+                    </div>
                 </div>
-                <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
-                </div>
-            </div>
+            @endif
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_pa.png') }})">
                 <div class="px-11 py-9 flex flex-row justify-end ">
                     <img class="w-[60px] h-[60px] mt-3" src="{{ asset('images/backend/icon_product_pa.png') }}" alt="">
@@ -230,7 +173,7 @@
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="showModal = true; showBound = true">绑定序列码</button>
+                    {{--<button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="showModal = true; showBound = true">绑定序列码</button>--}}
                 </div>
             </div>
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ar_pc.png') }})">
@@ -247,7 +190,7 @@
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
+                    {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_ar_ios.png') }})">
@@ -264,7 +207,7 @@
                 </div>
                 <div class="flex justify-around px-1">
                     <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                    <button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>
+                    {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
             <div class="w-[420px] h-[200px] rounded-md ml-10 mt-10" style="background-image: url({{ asset('images/backend/bg_card_av.png') }})">
@@ -311,7 +254,7 @@
             </div>
             <div class="flex flex-col mt-3">
                 <div class="flex justify-between py-5 border border-white border-b-[#EDEFF2]">
-                    <p class="text-sm font-bold text-black">产品名：</p> <span class="text-sm text-[#64666B]" x-text="data.name">傲梅轻松备份</span>
+                    <p class="text-sm font-bold text-black">产品名：</p> <span class="text-sm text-[#64666B]" x-text="data.name"></span>
                 </div>
                 <div class="flex justify-between py-5 border border-white border-b-[#EDEFF2]">
                     <p class="text-sm font-bold text-black">订单号：</p> <span class="text-sm text-[#64666B]" x-text="data.orderNo"></span>
@@ -333,7 +276,7 @@
             <!--Footer-->
             <div class="flex justify-end pt-2 mt-8">
                 {{--<button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" @click="alert('Additional Action');">Action</button>--}}
-                <button class="modal-close px-2 bg-[#3481F6] p-3 rounded-lg text-white hover:bg-indigo-400" @click="closeDialog()">确定</button>
+                <button class="modal-close px-2 bg-[#3481F6] p-2 rounded-lg text-white hover:bg-indigo-400" @click="closeDialog()">确定</button>
             </div>
 
 
@@ -377,42 +320,29 @@
             <table >
                 <thead class="bg-[#A2A9B0] text-sm text-white">
                     <tr>
-                        <th class="p-2.5">ID</th>
-                        <th class="p-2.5">设备名</th>
-                        <th class="p-2.5">IP</th>
-                        <th class="p-2.5">绑定次数</th>
-                        <th class="p-2.5">最新绑定时间</th>
-                        <th class="p-2.5">操作</th>
+                        <th class="px-5 py-2.5">ID</th>
+                        <th class="px-5 py-2.5">设备名</th>
+                        <th class="px-5 py-2.5">IP</th>
+                        <th class="px-5 py-2.5">最新绑定时间</th>
+                        <th class="px-5 py-2.5">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="hover:bg-[#D6E7FF]">
-                        <td class="p-2.5">1</td>
-                        <td class="p-2.5">EDSKTOP-PC</td>
-                        <td class="p-2.5">192.168.2.1</td>
-                        <td class="p-2.5">5</td>
-                        <td class="p-2.5">2021-10-12 12:45:12</td>
-                        <td class="p-2.5">...</td>
+                @foreach($devDetails as $key => $dev)
+                    <tbody>
+                    <tr class="hover:bg-[#D6E7FF] border border-x-0 border-t-0 border-b">
+                        <td class="px-5 py-2.5">{{ $key + 1 }}</td>
+                        <td class="px-5 py-2.5">{{ $dev['devName'] }}</td>
+                        <td class="px-5 py-2.5">{{ $dev['devIP'] }}</td>
+                        <td class="px-5 py-2.5">{{ date('Y-m-d H:i:s', $dev['lastBondTime']) }}</td>
+                        <td class="px-5 py-2.5 w-24 cursor-pointer text-[#3481F6] relative" x-ref="unbind{{$key}}"
+                            @click="$refs.unbind{{$key}}.childNodes[1].style.display='block'"
+                            @click.outside="$refs.unbind{{$key}}.childNodes[1].style.display='none'"
+                        >...
+                            <div class="absolute cursor-pointer hidden" wire:click="unbind('{{ $dev['devID'] }}')">解除绑定</div>
+                        </td>
                     </tr>
-                    <tr class="hover:bg-[#D6E7FF]">
-                        <td class="p-2.5">1</td>
-                        <td class="p-2.5">EDSKTOP-PC</td>
-                        <td class="p-2.5">192.168.2.1</td>
-                        <td class="p-2.5">5</td>
-                        <td class="p-2.5">2021-10-12 12:45:12</td>
-                        <td class="p-2.5">...</td>
-                    </tr>
-
-                    <tr class="hover:bg-[#D6E7FF]">
-                        <td class="p-2.5">1</td>
-                        <td class="p-2.5">EDSKTOP-PC</td>
-                        <td class="p-2.5">192.168.2.1</td>
-                        <td class="p-2.5">5</td>
-                        <td class="p-2.5">2021-10-12 12:45:12</td>
-                        <td class="p-2.5">...</td>
-                    </tr>
-
-                </tbody>
+                    </tbody>
+                @endforeach
             </table>
 
             <!--Footer-->

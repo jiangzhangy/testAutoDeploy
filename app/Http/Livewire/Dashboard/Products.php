@@ -3,37 +3,58 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\PaymentSystemApi;
+use App\Models\RequestApi;
 use GuzzleHttp\Client;
 use Livewire\Component;
 
 class Products extends Component
 {
-    public $orderNumbers = ['2021090216163043779289161'];
+    public $orderNumbers = [];
+    public $devDetails = [];
     public function render()
     {
+        if (session('userInfo')['devicedetails'] !== null){
+            $devDetailsStr = json_decode(session('userInfo')['devicedetails'], true);
+            $this->devDetails = array_values($devDetailsStr);
+        }
         return view('livewire.dashboard.products');
     }
 
-    public function getProductInfo($id)
+    /**产品详情
+     * @param $type
+     * @return false|string
+     */
+    public function getProductInfo($type)
     {
-       $data = [
-           1 => [
-               'icon' => '图片地址',
-               'name' => '傲梅轻松备份',
-               'subscribe' => 'VIP 终身版',
-               'orderNo' => '1115555226',
-               'orderCreateDate' => '2022-4-21',
-               'devicesNum' => 5,
-               'expiryData' => '终身'
-           ],
-           2 => [
-               'name' => 'name2',
-           ],
-       ];
-
-       return json_encode($data[$id]);
+        $productdetails = session('userInfo')['productdetails'];
+        if ($productdetails !== null){
+            $productdetailsArr = json_decode($productdetails, true);
+        }
+        $name = '';
+        if (!$productdetailsArr[$type]){
+            return '{}';
+        }
+        if ($productdetailsArr[$type]['type'] === 'AB'){
+            $name = '傲梅轻松备份';
+        }
+        $data = [
+            'name' => $name,
+            'orderNo' => $productdetailsArr[$type]['paymentDetails']['orderId'],
+            'orderCreateDate' => date('Y-m-d', $productdetailsArr[$type]['paymentDetails']['createTime']/1000),
+            'subscribe' => $productdetailsArr[$type]['paymentDetails']['type'] === '1' ? '终身版' : '订阅',
+            'devicesNum' => $productdetailsArr[$type]['paymentDetails']['devices'],
+            'expiryData' => $productdetailsArr[$type]['paymentDetails']['eTime'] === '8888-88-88' ? '终身' : date('Y-m-d', $productdetailsArr[$type]['paymentDetails']['eTime']/1000),
+        ];
+       return json_encode($data);
     }
 
+    /**
+     * 购买
+     * @param $productId
+     * @param $payMethod
+     * @return false|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function goPay($productId, $payMethod)
     {
         $client = new PaymentSystemApi();
@@ -50,6 +71,10 @@ class Products extends Component
         return json_encode($data);
     }
 
+    /**
+     * 轮询查订单
+     * @return false|string
+     */
     public function queryOrderState()
     {
         $client = new PaymentSystemApi();
@@ -62,5 +87,18 @@ class Products extends Component
             ]);
         }
         return $res->getBody()->getContents();
+    }
+
+    /**
+     * 解除设备绑定
+     * @param $devId
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function unbind($devId)
+    {
+        $client = new RequestApi();
+        $res = $client->unbindDevice($devId);
+        return redirect()->route('dashboard-products');
     }
 }

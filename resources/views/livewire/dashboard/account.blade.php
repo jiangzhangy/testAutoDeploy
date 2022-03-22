@@ -37,14 +37,16 @@
 
    <div class="mt-11">
       <img src="{{ asset('images/backend/icon_Diamond.png') }}" alt="特权" class="m-2 inline"><span>我的特权</span>
-      <div class="mt-6 w-80 h-[162px] bg-none border rounded-md px-[15px] pt-[20px]" style="background-image: url({{ asset('images/backend/img_card_vip.png') }})">
-         <h3 class="text-[#0B3769] text-sm font-bold">傲梅轻松备份</h3>
-         <p class="text-xs text-white mt-6">使用期限:终身使用</p>
-         <p class="text-xs text-white mt-3">使用须知：仅用于显示当前用户为该软件会员用户，不支持其他用途。</p>
-         <span class="text-xs text-[#A0C6F0] ml-[170px]">
+      @if($userInfo['productdetails'] !== null)
+         <div class="mt-6 w-80 h-[162px] bg-none border rounded-md px-[15px] pt-[20px]" style="background-image: url({{ asset('images/backend/img_card_vip.png') }})">
+            <h3 class="text-[#0B3769] text-sm font-bold">傲梅轻松备份</h3>
+            <p class="text-xs text-white mt-6">使用期限:终身使用</p>
+            <p class="text-xs text-white mt-3">使用须知：仅用于显示当前用户为该软件会员用户，不支持其他用途。</p>
+            <span class="text-xs text-[#A0C6F0] ml-[170px]">
             尊贵特权<img class="inline" src="{{ asset('images/backend/icon_card_Diamond.png') }}" alt="vip">会员专享
          </span>
-      </div>
+         </div>
+      @endif
    </div>
 
 </div>

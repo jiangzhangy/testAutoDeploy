@@ -138,7 +138,7 @@ class RequestApi
 
     /**
      * 更新用户头像
-     * @param $fileBody base64 内容
+     * @param $fileBody  内容
      * @param $fileName 文件名称
      * @param $fileSize 文件大小
      * @return false|\Psr\Http\Message\ResponseInterface
@@ -174,14 +174,34 @@ class RequestApi
         try
         {
             return $this->client->request('POST', config('remote.update_phone_uri'), [
-                'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']],
+                'headers' => ['Authorization' => 'bearer ' . session('auth')['accessToken']],
                 'query' => [
                     'phone' => $phone,
                     'code'  => $code
                 ]
             ]);
         }catch (\Exception $exception){
-            dd($exception->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * 解除绑定设备
+     * @param $device
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function unbindDevice($device)
+    {
+        try
+        {
+            return $this->client->request('POST', config('remote.unbind_dev'), [
+                'headers' => ['Authorization' => 'bearer ' . session('auth')['accessToken']],
+                'query' => [
+                    'devID' => $device
+                ]
+            ]);
+        }catch (\Exception $exception){
             return false;
         }
     }

@@ -14,6 +14,7 @@ class Account extends Component
     public $QRUrl;
     public $avatar;
     public $userInfo;
+    public $base64Str;
 
     public function mount()
     {
@@ -66,6 +67,7 @@ class Account extends Component
 
             //获取图片base64
             $base64 = chunk_split(base64_encode($gambar));
+            $base64 = str_replace(["\r\n", "\n", "\r"], '' , $base64);
             $client = new RequestApi();
             $res = $client->updateAvatar($base64, $this->avatar->getClientOriginalName(), $this->avatar->getMaxFilesize());
             if (!$res){
