@@ -73,7 +73,7 @@ class RequestApi
     {
         try
         {
-            return $this->client->request('GET', config('remote.get_user_by_openid_uri'), ['query' => ['openID' => $openid]]);
+            return $this->client->request('POST', config('remote.get_user_by_openid_uri'), ['query' => ['openID' => $openid]]);
         }catch (\Exception $exception){
             return false;
         }
@@ -85,11 +85,16 @@ class RequestApi
      * @return false|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function boundWechatPhone($openid)
+    public function boundWechatPhone($openid, $account)
     {
         try
         {
-            return $this->client->request('GET', config('remote.bound_wechat_phone_uri'), ['query' => ['openID' => $openid], 'headers' => ['Authorization' => 'bearer' . session('auth')['accessToken']]]);
+            return $this->client->request('GET', config('remote.bound_wechat_phone_uri'), [
+                'query' => [
+                    'openID' => $openid,
+                    'account' => $account
+                ]
+            ]);
         }catch (\Exception $exception){
             return false;
         }
@@ -199,6 +204,20 @@ class RequestApi
                 'headers' => ['Authorization' => 'bearer ' . session('auth')['accessToken']],
                 'query' => [
                     'devID' => $device
+                ]
+            ]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    public function checkSubscribe($scene_str)
+    {
+        try
+        {
+            return $this->client->request('GET', config('remote.check_subscribe'), [
+                'query' => [
+                    'scene_str' => $scene_str
                 ]
             ]);
         }catch (\Exception $exception){

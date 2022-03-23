@@ -12,6 +12,7 @@ class Account extends Component
     use WithFileUploads;
     public $nickName = '';
     public $QRUrl;
+    public $sceneStr;
     public $avatar;
     public $userInfo;
     public $base64Str;
@@ -20,8 +21,12 @@ class Account extends Component
     {
         $this->userInfo = session('userInfo');
         $client = new RequestApi();
-        $res = $client->accessWeichatLoginUrl();
-        $this->QRUrl = json_decode($res->getBody()->getContents(), true)['data'];
+        if ($this->userInfo['wxdetails'] === null){
+            $res = $client->accessWeichatLoginUrl();
+            $data = json_decode($res->getBody()->getContents(), true);
+            $this->QRUrl = $data['data']['qrcode'];
+            $this->sceneStr = $data['data']['scene_str'];
+        }
     }
     public function render()
     {
@@ -162,6 +167,27 @@ class Account extends Component
             ]);
         }
         return redirect()->route('dashboard-account');
+    }
+
+    public function checkSubscribe()
+    {
+        $client = new RequestApi();
+        $res = $client->checkSubscribe($this->sceneStr);
+        if($res){
+            $resArr = json_decode($res->getBody()->getContents(), true);
+            if ($resArr['status'] === 0){
+                $data = json_decode($resArr['data'], true);
+                // 绑定微信和账户
+                $bondRes = $client->boundWechatPhone($data['openid'], session('auth')['account']);
+                if ($bondRes){
+                    $resArr = json_decode($bondRes->getBody()->getContents(), true);
+                    if($bondRes->getStatusCode() !== 200 && $resArr['code'] !== 0){
+                        return $this->addError('bound', '绑定失败');
+                    }
+                    return redirect()->route('dashboard-account');
+                }
+            }
+        }
     }
     /*public function getBoundWechatQR()
     {

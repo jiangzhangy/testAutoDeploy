@@ -43,7 +43,7 @@ class Products extends Component
             'orderCreateDate' => date('Y-m-d', $productdetailsArr[$type]['paymentDetails']['createTime']/1000),
             'subscribe' => $productdetailsArr[$type]['paymentDetails']['type'] === '1' ? '终身版' : '订阅',
             'devicesNum' => $productdetailsArr[$type]['paymentDetails']['devices'],
-            'expiryData' => $productdetailsArr[$type]['paymentDetails']['eTime'] === '8888-88-88' ? '终身' : date('Y-m-d', $productdetailsArr[$type]['paymentDetails']['eTime']/1000),
+            'expiryData' => $productdetailsArr[$type]['paymentDetails']['eTime'] === '0' ? '终身' : date('Y-m-d', $productdetailsArr[$type]['paymentDetails']['eTime']/1000),
         ];
        return json_encode($data);
     }

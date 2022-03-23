@@ -30,7 +30,7 @@
       @else
          <div class="w-[218px] h-[34px] -ml-3 flex justify-center items-center">
             <img class="h-[19px]" src="{{ asset('images/backend/icon_bt_wechatbind_normal.png') }}" alt="wx">
-            <p class="text-[#64666B] text-sm ml-2">微信号: {{ (json_decode(($this->userInfo)['wxdetails'], true))['nickname'] }}</p>
+            <p class="text-[#64666B] text-sm ml-2">已绑定微信</p>
          </div>
       @endif
    </div>

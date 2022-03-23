@@ -10,7 +10,7 @@
 }">
     <div class="absolute top-0 bg-[#03080F] h-screen w-screen opacity-30"></div>
     <div class="absolute px-10 pt-2 pb-4 z-10 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md">
-        <img @click="$refs.layer.style.display = 'none'" class="absolute w-[26px] h-[26px] right-[18px] top-[18px] cursor-pointer" src="{{ asset('images/backend/icon_window_close_normal.png') }}" alt="x">
+        <img @click="$refs.layer.style.display = 'none';showBoundWechat = false" class="absolute w-[26px] h-[26px] right-[18px] top-[18px] cursor-pointer" src="{{ asset('images/backend/icon_window_close_normal.png') }}" alt="x">
         <div x-show="showEditName">
             <h1 class="mt-9 text-lg font-bold">设置昵称</h1>
             <input class="w-[380px] h-[34px] border border-[#9FA0A4] mt-5 pl-[10px]" type="text" placeholder="请输入昵称" x-model="nickName">
@@ -20,26 +20,22 @@
             </div>
         </div>
         @if($userInfo['wxdetails'] === null)
-        <div x-show="showBoundWechat">
+        <div x-show="showBoundWechat" x-data="{
+            init(){
+                $watch('showBoundWechat', (showBoundWechat) => {
+                  if (showBoundWechat){
+                    this.loginState = setInterval(function (){
+                    $wire.checkSubscribe()
+                    },2000);
+                  }else{
+                    clearInterval(this.loginState)
+                  }
+                })
+            }
+        }">
                 <h1 class="mt-9 text-lg font-bold">绑定微信</h1>
-                <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]" x-data="{
-                init(){
-                    new WxLogin({
-                    self_redirect:true,
-                    id:'code',
-                    appid: 'wxd4ac8a5fc03e9cd4',
-                    scope: 'snsapi_login',
-                    redirect_uri: 'http://491833ii87.zicp.vip/api/user/weixinconnect',
-                    state: 'F2342B820364DD36D546A23EEFB57065274A18D0653F860C45728C0FD4CBC762',
-                    style: 'white',
-                    //href: 'LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9IA==',
-                    href: 'data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDE5NXB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7ZGlzcGxheTogbm9uZTt9DQouc3RhdHVzX2ljb24ge2Rpc3BsYXk6IGJsb2NrfQ0KLmltcG93ZXJCb3ggLnN0YXR1cyB7dGV4dC1hbGlnbjogY2VudGVyO30gDQoub2xkLXRlbXBsYXRle21hcmdpbi1sZWZ0OiAtMTA1cHg7bWFyZ2luLXRvcDogLTE2cHg7fQ=='
-                    });
-                        }
-            }">
-                    {{--<img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">--}}
-                    <div class="w-[195px] h-[186px]" id="code"></div>
-                    {{--<iframe class="w-[195px] h-[186px]" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $QRUrl }}"></iframe>--}}
+                <div class="border border-[#C7D5E0] mx-8 my-4 p-[1px]" x-data="">
+                    <img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">
                 </div>
                 <div class="text-sm text-[#64666B] text-center">微信扫描二维码绑定</div>
                 <div class="text-sm text-[#202123] flex flex-col mt-10 mb-5">

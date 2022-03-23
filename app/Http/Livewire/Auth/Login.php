@@ -12,13 +12,15 @@ class Login extends Component
     public $mobile;
     public $code;
     public $linkedAccount;
+    public $sceneStr = '';
 
     public function mount(RequestApi $requestApi)
     {
         $res = $requestApi->accessWeichatLoginUrl();
         if ($res){
             $resArr = json_decode($res->getBody()->getContents(), true);
-            $this->url = $resArr['data'];
+            $this->url = $resArr['data']['qrcode'];
+            $this->sceneStr = $resArr['data']['scene_str'];
         }
     }
     public function render()
@@ -73,7 +75,7 @@ class Login extends Component
         }
         // 绑定微信和手机号
         $client = new RequestApi();
-        $res = $client->boundWechatPhone($this->linkedAccount);
+        $res = $client->boundWechatPhone($this->linkedAccount, session('auth')['account']);
         if ($res === false) {
             return $this->addError('systemError', '系统异常');
         }
@@ -110,5 +112,19 @@ class Login extends Component
         // 存入 session
         session(['auth' => $resArr['data']]);
         return true;
+    }
+
+    public function checkSubscribe()
+    {
+        $client = new RequestApi();
+        $res = $client->checkSubscribe($this->sceneStr);
+        if($res){
+            $resArr = json_decode($res->getBody()->getContents(), true);
+            if ($resArr['status'] === 0){
+                // 检测是否绑定手机账户
+                $data = json_decode($resArr['data'], true);
+                return redirect()->to('login?openid=' . $data['openid']);
+            }
+        }
     }
 }

@@ -87,10 +87,10 @@ class Dashboard extends Controller
             'paymentDetails'  => [
                 'createTime' => $data['data']['create_time'],
                 'devices' => (string)$sn->support_max_number,
-                'etime' => '8888-88-88',
+                'etime' => '0',
                 'orderId' => $data['data']['order_no'],
                 'status' => '1',
-                'stime' => '6666-66-66',
+                'stime' => '0',
                 'type' => $sn->subscribe_type_id,
             ],
             'proVersion'  => $sn->support_version,

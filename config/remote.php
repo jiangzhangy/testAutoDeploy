@@ -17,5 +17,6 @@ return [
     'api_auth_host' => env('API_AUTH_REMOTE_HOST'),
     'auth_user_login' => env('OAUTH_USER_LOGIN'),
     'update_user_product_uri' => env('UPDATE_USER_PRODUCT_URI'),
-    'unbind_dev' => env('UNBIND_DEV_URI')
+    'unbind_dev' => env('UNBIND_DEV_URI'),
+    'check_subscribe' => env('CHECK_SUBSCRIBE_URI')
 ];

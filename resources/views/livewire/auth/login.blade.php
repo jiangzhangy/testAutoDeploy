@@ -82,14 +82,28 @@
     },
     // 初始调用
     init() {
-        $watch('mobile', (mobile) => {
-            if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(mobile))){
-               this.errorClass = 'hidden';
-               this.mobileErrorShow = ''
-               this.inputMobileBorderColor = 'border-red-500';
+        this.loginState = setInterval(function (){
+                    $wire.checkSubscribe().then(function(res){
+                        console.log(res)
+                    })
+                },2000);
+        $watch('isMobile', (isMobile) => {
+            if (isMobile){
+               clearInterval(this.loginState)
+                $watch('mobile', (mobile) => {
+                    if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(mobile))){
+                       this.errorClass = 'hidden';
+                       this.mobileErrorShow = ''
+                       this.inputMobileBorderColor = 'border-red-500';
+                    }else{
+                       this.mobileErrorShow = 'hidden'
+                       this.inputMobileBorderColor = '';
+                    }
+                })
             }else{
-               this.mobileErrorShow = 'hidden'
-               this.inputMobileBorderColor = '';
+                this.loginState = setInterval(function (){
+                    $wire.checkSubscribe()
+                },2000);
             }
         })
     }
@@ -120,8 +134,13 @@
             </template>
             {{--微信扫码登录--}}
             <div class="m-10 m-auto text-center" x-show="!isMobile">
-                <div>
-                    <iframe class="h-100 m-auto" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $url }}"></iframe>
+                <div class="flex flex-col justify-center items-center">
+                    {{--<iframe class="h-100 m-auto" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $url }}"></iframe>--}}
+                    <h1 class="text-[28px]">微信登录</h1>
+                    <div class="px- py-1 border border-[#C7D5E0] my-6">
+                        <img class="w-[180px]" src="{{ $url }}" alt="">
+                    </div>
+                    <p class="text-sm text-[#202123]">请使用微信扫描二维码登录</p>
                 </div>
                 <div class="text-center text-gray-500 todo-striping">或</div>
                 <button @click="changeLoginMethod()" type="button" class="block bg-white mt-6 h-9 w-72 mx-auto mb-10 text-center text-sm text-[#3481F6] border border-[#3481F6] rounded-md px-2"><img class="w-5 inline mr-1 mb-0.5" src="{{ asset('images/backend/icon_bt_phone_normal.png') }}" alt="微信图标">使用手机号登录</button>
