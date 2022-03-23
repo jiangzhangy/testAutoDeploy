@@ -231,6 +231,13 @@ class RequestApi
         }
     }
 
+    /**
+     * 更新用户产品信息
+     * @param $data
+     * @param $token
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function updateUserProduct($data, $token)
     {
 
@@ -239,6 +246,18 @@ class RequestApi
             return $this->client->request('POST', config('remote.update_user_product_uri'), [
                 'headers' => ['Authorization' => 'bearer ' . $token],
                 'json'  => $data
+            ]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    public function getAuthByToken($token)
+    {
+        try
+        {
+            return $this->client->request('POST', config('remote.get_auth_by_token'), [
+                'headers' => ['Authorization' => 'bearer ' . $token],
             ]);
         }catch (\Exception $exception){
             return false;

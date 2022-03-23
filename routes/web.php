@@ -27,7 +27,7 @@ Route::controller(\App\Http\Controllers\Dashboard::class)->middleware('logined')
     // 个人中心
     Route::get('dashboard/account','account')->name('dashboard-account');
     // 我的产品
-    Route::get('dashboard/products','products')->name('dashboard-products');
+    Route::get('dashboard/products/{type?}','products')->name('dashboard-products');
     // 帮助中心
     Route::get('/dashboard/help','help')->name('dashboard-help');
 });

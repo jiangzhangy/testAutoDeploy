@@ -36,6 +36,22 @@ class Authorization extends Controller
                 }
             }
         }
+        // 软件跳转到网页
+        if ($request->input('access_token')){
+            // 存储 auth
+            $authRes = $client->getAuthByToken($request->input('access_token'));
+            if ($authRes){
+                $authResArr = json_decode($authRes->getBody()->getContents(), true);
+                if ($authResArr['status'] === 0){
+                    session(['auth' => $authResArr['data']]);
+                    // 跳转到绑定序列码或者购买
+                    if ($request->input('type')){
+                        return redirect()->route('dashboard-products',['type' => $request->input('type')]);
+                    }
+                }
+
+            }
+        }
         return view('pages.auth.login');
     }
 

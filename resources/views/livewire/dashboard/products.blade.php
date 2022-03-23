@@ -90,7 +90,6 @@
         that.positionTimer = setInterval(function (){
             $wire.queryOrderState().then(result => {
                 res = JSON.parse(result)
-                console.log(res)
                 if (res.code === 200){
                     that.paySuccess(res.data.order_no);
                 }
@@ -113,6 +112,15 @@
                 $refs.serialNumberError.innerHTML = data.msg
             }
         })
+    },
+    init(){
+        if(@js($type) === 'boundsn'){
+            this.showModal = true
+            this.showBound = true
+        }
+        if (@js($type) === 'payab'){
+           this.buy(9,2)
+        }
     }
 
 }">

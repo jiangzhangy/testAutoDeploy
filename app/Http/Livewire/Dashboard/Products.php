@@ -11,12 +11,16 @@ class Products extends Component
 {
     public $orderNumbers = [];
     public $devDetails = [];
+    public $type = '';
     public function render()
     {
         if (session('userInfo')['devicedetails'] !== null){
             $devDetailsStr = json_decode(session('userInfo')['devicedetails'], true);
             $this->devDetails = array_values($devDetailsStr);
         }
+        $url = url()->current();
+        $urlArr = explode('/', $url);
+        $this->type = last($urlArr);
         return view('livewire.dashboard.products');
     }
 
