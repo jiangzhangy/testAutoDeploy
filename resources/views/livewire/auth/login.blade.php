@@ -84,7 +84,6 @@
     init() {
         this.loginState = setInterval(function (){
                     $wire.checkSubscribe().then(function(res){
-                        console.log(res)
                     })
                 },2000);
         $watch('isMobile', (isMobile) => {

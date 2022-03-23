@@ -211,6 +211,12 @@ class RequestApi
         }
     }
 
+    /**
+     * 检测是否关注公众号
+     * @param $scene_str
+     * @return false|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function checkSubscribe($scene_str)
     {
         try
@@ -219,6 +225,20 @@ class RequestApi
                 'query' => [
                     'scene_str' => $scene_str
                 ]
+            ]);
+        }catch (\Exception $exception){
+            return false;
+        }
+    }
+
+    public function updateUserProduct($data, $token)
+    {
+
+        try
+        {
+            return $this->client->request('POST', config('remote.update_user_product_uri'), [
+                'headers' => ['Authorization' => 'bearer ' . $token],
+                'json'  => $data
             ]);
         }catch (\Exception $exception){
             return false;

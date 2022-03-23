@@ -102,6 +102,17 @@
         clearInterval(this.positionTimer)
         this.paying = false
         this.paid = true
+    },
+    // 绑定注册码
+    serialNumber: '',
+    serialNumberError: '',
+    bound(){
+        $wire.bondCode(this.serialNumber).then(function(result){
+            data = JSON.parse(result)
+            if (data.code === 404){
+                $refs.serialNumberError.innerHTML = data.msg
+            }
+        })
     }
 
 }">
@@ -127,7 +138,7 @@
                     </div>
                     <div class="flex justify-around px-1">
                         <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
-                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getBoundInfo(1)">绑定设备信息</button>
+                        <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getBoundInfo('AB')">绑定设备信息</button>
                         <button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="getInfo('AB')">查看详情</button>
                     </div>
                 </div>
@@ -172,7 +183,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://www2.aomeisoftware.com/download/pacn/PAInstall.zip ">立即下载</a></button>
                     {{--<button class="w-[120px] h-[34px] border border-white rounded opacity-50 text-sm text-white" @click="showModal = true; showBound = true">绑定序列码</button>--}}
                 </div>
             </div>
@@ -189,7 +200,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WXRecovery.zip">立即下载</a></button>
                     {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
@@ -206,7 +217,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WinFR.zip">立即下载</a></button>
                     {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
@@ -223,7 +234,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white">立即下载</button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/Anyviewer.zip">立即下载</a></button>
                 </div>
             </div>
         </div>
@@ -294,12 +305,13 @@
             </div>
 
             <!-- content -->
-            <input class="w-[380px] h-[34px] border border-[#9FA0A4] rounded px-2" placeholder="请输入要绑定的注册码" type="text">
+            <input class="w-[380px] h-[34px] border border-[#9FA0A4] rounded px-2" placeholder="请输入要绑定的注册码" type="text" x-model="serialNumber">
+            <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-ref="serialNumberError"></p>
 
             <!--Footer-->
             <div class="flex justify-end pt-2 mt-4">
                 <button class="modal-close w-[120px] h-[34px] border border-[#9FA0A4] rounded text-[#64666B]" @click="closeDialog()">取消</button>
-                <button class="modal-close w-[120px] h-[34px] bg-[#3481F6] rounded text-white ml-[20px]" @click="bound(id)">确定</button>
+                <button class="modal-close w-[120px] h-[34px] bg-[#3481F6] rounded text-white ml-[20px]" @click="bound()">确定</button>
             </div>
 
 
