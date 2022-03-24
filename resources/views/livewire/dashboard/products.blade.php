@@ -44,26 +44,26 @@
             }
         });
     },
-    unChecked: '../images/backend/icon_radio_unchecked.png',
-    checked: '../images/backend/icon_radio_check.png',
+    unChecked: '/images/backend/icon_radio_unchecked.png',
+    checked: '/images/backend/icon_radio_check.png',
     src1: this.unChecked,
     src2: this.unChecked,
     text1: '',
     text2: '',
     codeFigure: '',
-    qrImage: '../images/backend/icon_QR_code_WeChat.png',
+    qrImage: '/images/backend/icon_QR_code_WeChat.png',
     paying: true,
     paid: false,
     changePayMethod(productId, payMethod){
         $wire.goPay(productId, payMethod).then(result => {
             if (payMethod === 2){
-                this.qrImage = '../images/backend/icon_QR_code_WeChat.png'
+                this.qrImage = '/images/backend/icon_QR_code_WeChat.png'
                 this.src1 = this.checked
                 this.src2 = this.unChecked
                 this.text1 = 'text-[#1C6FFF]'
                 this.text2 = ''
             }else{
-                this.qrImage = '../images/backend/icon_QR_code_Alipay.png'
+                this.qrImage = '/images/backend/icon_QR_code_Alipay.png'
                 this.src1 = this.unChecked
                 this.src2 = this.checked
                 this.text2 = 'text-[#1C6FFF]'
@@ -115,7 +115,7 @@
     },
     // 页面重载
     reload(){
-        location.reload()
+       window.location.href='/dashboard/products'
     },
     init(){
         if(@js($type) === 'boundsn'){

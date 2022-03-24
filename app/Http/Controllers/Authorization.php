@@ -13,14 +13,6 @@ class Authorization extends Controller
             // 携带参数跳转
             return view('redirect', ['uri' => url()->full()]);
         }
-        // 已经登录
-        if (session('auth')){
-            if ($request->input('openid')){
-                $client->boundWechatPhone($request->input('openid'), session('auth')['account']);
-                return redirect()->route('dashboard-account');
-            }
-            return redirect()->route('dashboard-account');
-        }
         // 微信扫码登录
         if ($request->input('openid')) {
             $res = $client->getUserByOpenid($request->input('openid'));
@@ -51,6 +43,14 @@ class Authorization extends Controller
                 }
 
             }
+        }
+        // 已经登录
+        if (session('auth')){
+            if ($request->input('openid')){
+                $client->boundWechatPhone($request->input('openid'), session('auth')['account']);
+                return redirect()->route('dashboard-account');
+            }
+            return redirect()->route('dashboard-account');
         }
         return view('pages.auth.login');
     }
