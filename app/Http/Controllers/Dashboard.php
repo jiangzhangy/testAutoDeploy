@@ -13,7 +13,7 @@ class Dashboard extends Controller
 
     public function index()
     {
-        return view('pages.dashboard.help');
+        return view('pages.dashboard.account');
     }
 
     public function account()
@@ -80,12 +80,12 @@ class Dashboard extends Controller
         } else {
             $newVersionFormat = $oldVersionFormat;
         }
-        $data = [
+        $updateData = [
             'name'  => $sn->soft->soft_name,
             'newSupportVersion'  => $newVersionFormat,
             'oldSupportVersion'  => $oldVersionReturn,
             'paymentDetails'  => [
-                'createTime' => $data['data']['create_time'],
+                'createTime' => $data['data']['create_time'] . '000',
                 'devices' => (string)$sn->support_max_number,
                 'etime' => '0',
                 'orderId' => $data['data']['order_no'],
@@ -98,7 +98,7 @@ class Dashboard extends Controller
             'type'  => $sn->soft->alias,
             'version'  => $sn->release_version,
         ];
-        $res = $client->updateUserProduct($data, $token);
+        $res = $client->updateUserProduct($updateData, $token);
         if (!$res){
             // 记录日志
             return false;

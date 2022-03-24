@@ -30,10 +30,11 @@ class PaymentSystemApi
         $body['quantity'] = 1;
         $body['nickname'] = $userInfo['nickname'];
         $body['mobile'] = $userInfo['account'];
-        $body['email'] = '649768017@qq.com';
+        $body['email'] = 'abackup@qq.com';
         $body['landing_page'] = 'https://www.abackup.com/dashboard.html';
         $body['purchase_page'] = 'https://www.abackup.com/dashboard.html';
         $body['pay_method'] = $payMethod;
+        $body['payee'] = 1;
         try
         {
             return $this->client->request('POST', config('remote.get_order_qr_uri'), [

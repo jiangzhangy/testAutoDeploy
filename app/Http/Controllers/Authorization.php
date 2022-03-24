@@ -16,7 +16,7 @@ class Authorization extends Controller
         // 已经登录
         if (session('auth')){
             if ($request->input('openid')){
-                $client->boundWechatPhone($request->input('openid'));
+                $client->boundWechatPhone($request->input('openid'), session('auth')['account']);
                 return redirect()->route('dashboard-account');
             }
             return redirect()->route('dashboard-account');
