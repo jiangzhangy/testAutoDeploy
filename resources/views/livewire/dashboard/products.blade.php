@@ -212,7 +212,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WXRecovery.zip">立即下载</a></button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WinFR.zip">立即下载</a></button>
                     {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
@@ -229,7 +229,7 @@
                     </div>
                 </div>
                 <div class="flex justify-around px-1">
-                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WinFR.zip">立即下载</a></button>
+                    <button class="w-[120px] h-[34px] bg-[#3481F6] rounded text-sm text-white"><a href="https://download.aomeikeji.com/WXRecovery.zip">立即下载</a></button>
                     {{--<button class="w-[120px] h-[34px] bg-[#FF8400] rounded text-sm text-white" @click="buy(9,2)">购买</button>--}}
                 </div>
             </div>
@@ -357,7 +357,7 @@
                         <td class="px-5 py-2.5">{{ $key + 1 }}</td>
                         <td class="px-5 py-2.5">{{ $dev['devName'] }}</td>
                         <td class="px-5 py-2.5">{{ $dev['devIP'] }}</td>
-                        <td class="px-5 py-2.5">{{ date('Y-m-d H:i:s', $dev['lastBondTime']) }}</td>
+                        <td class="px-5 py-2.5">{{ date('Y-m-d H:i:s', $dev['lastBondTime']/1000) }}</td>
                         <td class="px-5 py-2.5 w-24 cursor-pointer text-[#3481F6] relative" x-ref="unbind{{$key}}"
                             @click="$refs.unbind{{$key}}.childNodes[1].style.display='block'"
                             @click.outside="$refs.unbind{{$key}}.childNodes[1].style.display='none'"
