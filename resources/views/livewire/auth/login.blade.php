@@ -153,11 +153,13 @@
                 <h2 class="text-center text-[28px]">绑定手机号</h2>
                 @error('systemError')<p class="text-red-500 text-xs mt-1">{{ $message  }}</p>@enderror
                 <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border border-[#9FA0A4] rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                @error('reusePhone')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
-                <input type="text" class="w-[240px] h-[40px] mt-[20px] border border-[#9FA0A4] rounded pl-1 @error('code') text-[#FF222D] @enderror" maxlength="6" placeholder="请输入验证码" x-model="code">
+                <input type="text" class="w-[240px] h-[40px] mt-[20px] border border-[#9FA0A4] rounded pl-1 @error('code') border-[#FF222D] @enderror" maxlength="6" placeholder="请输入验证码" x-model="code">
                 <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
                 @error('bound')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
+                @error('code')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <button type="button" class="block m-auto bg-[#3481F6] mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" @click="bindPhone()">
                     <span :class="loading"></span>
                     绑定

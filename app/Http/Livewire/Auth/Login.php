@@ -80,6 +80,12 @@ class Login extends Component
             return $this->addError('systemError', '系统异常');
         }
         $resArr = json_decode($res->getBody()->getContents(), true);
+        if($res->getStatusCode() === 200 && $resArr['status'] === 16005){
+            return $this->addError('reusePhone', '该手机号已经被其他账户绑定');
+        }
+        if($res->getStatusCode() === 200 && $resArr['status'] === 16005){
+            return $this->addError('reusePhone', '该手机号已经被其他账户绑定');
+        }
         if($res->getStatusCode() !== 200 && $resArr['code'] !== 0){
             return $this->addError('bound', '绑定失败');
         }
