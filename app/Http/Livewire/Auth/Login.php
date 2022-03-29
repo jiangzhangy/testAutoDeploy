@@ -91,7 +91,7 @@ class Login extends Component
         // 验证手机号和验证码格式
         $validateData = Validator::make(
             ['code' => $code, 'mobile' => $mobile],
-            ['code' => 'required|numeric|digits:6', 'mobile' => 'required|regex:/^1[34578]\d{9}$/'],
+            ['code' => 'required|numeric|digits:6', 'mobile' => 'required|regex:/^1[345789]\d{9}$/'],
             [
                 'code.required' => '验证码必填',
                 'code.numeric' => '验证码格式错误',

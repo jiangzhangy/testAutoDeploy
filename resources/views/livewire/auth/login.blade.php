@@ -82,10 +82,13 @@
     },
     // 初始调用
     init() {
-        this.loginState = setInterval(function (){
+        if(@js($linkedAccount) === false){
+            this.loginState = setInterval(function (){
                     $wire.checkSubscribe().then(function(res){
                     })
                 },2000);
+        }
+
         $watch('isMobile', (isMobile) => {
             if (isMobile){
                clearInterval(this.loginState)
