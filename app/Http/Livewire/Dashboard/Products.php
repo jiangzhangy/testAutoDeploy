@@ -110,11 +110,18 @@ class Products extends Component
     {
         // 查找序列码
         $serialNumberModel = new SerialNumber();
-        $sn = $serialNumberModel->where('serial_number', $serialNumber)->first();
+        $sn = $serialNumberModel->where('serial_number', $serialNumber)->where('support_version', '47')->first();
         if (!$sn){
             return json_encode([
                 'code' => 404,
-                'msg'  => '序列码不存在或者错误',
+                'msg'  => '您输入的注册码有误，请重新输入',
+                'data' => []
+            ]);
+        }
+        if ($sn->support_version !== '47'){
+            return json_encode([
+                'code' => 405,
+                'msg'  => '您输入的注册码无法注册傲梅轻松备份，请重新输入',
                 'data' => []
             ]);
         }
@@ -163,6 +170,14 @@ class Products extends Component
             return json_encode([
                 'code' => 404,
                 'msg'  => '系统错误',
+                'data' => []
+            ]);
+        }
+        $resArr = json_decode($res->getBody()->getContents(), true);
+        if ($resArr['status'] === 14104){
+            return json_encode([
+                'code' => 14104,
+                'msg'  => '您输入的注册码已被绑定，请联系技术支持：aomeitech@163.com',
                 'data' => []
             ]);
         }

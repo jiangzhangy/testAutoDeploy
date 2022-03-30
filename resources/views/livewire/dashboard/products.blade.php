@@ -108,7 +108,8 @@
     bound(){
         $wire.bondCode(this.serialNumber).then(function(result){
             data = JSON.parse(result)
-            if (data.code === 404){
+            if (data.code){
+                $refs.serialNumberInput.style = 'border-color: rgb(220 38 38);'
                 $refs.serialNumberError.innerHTML = data.msg
             }
         })
@@ -317,7 +318,7 @@
             </div>
 
             <!-- content -->
-            <input class="w-[380px] h-[34px] border border-[#9FA0A4] rounded px-2" placeholder="请输入要绑定的注册码" type="text" x-model="serialNumber">
+            <input class="w-[380px] h-[34px] border border-[#9FA0A4] rounded px-2" x-ref="serialNumberInput" placeholder="请输入要绑定的注册码" type="text" x-model="serialNumber">
             <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-ref="serialNumberError"></p>
 
             <!--Footer-->
