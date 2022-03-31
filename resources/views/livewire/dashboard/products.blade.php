@@ -305,7 +305,7 @@
 
 
         </div>
-        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound" @click.away="closeDialog()">
+        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound" @click="closeDialog()">
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">

@@ -30,7 +30,7 @@
                     <img src="{{ asset(asset('images/backend/icon_tutorial_arpc.png')) }}" alt="傲梅数据恢复" class="h-5 w-5 inline mr-1">
                     <span class="text-sm text-[#2E8BF5]">傲梅数据恢复 > ></span>
                 </a>
-                <a class="mt-10 ml-24" href=https://www.disktool.cn/recovery/winfr-help.html"" target="_blank">
+                <a class="mt-10 ml-24" href="https://www.disktool.cn/recovery/winfr-help.html" target="_blank">
                     <img src="{{ asset(asset('images/backend/icon_tutorial_winfr.png')) }}" alt="傲梅 WinFR" class="h-5 w-5 inline mr-1">
                     <span class="text-sm text-[#2E8BF5]">傲梅 WinFR > ></span>
                 </a>
