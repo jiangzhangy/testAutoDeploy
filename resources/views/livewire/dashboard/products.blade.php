@@ -363,7 +363,9 @@
                             @click="$refs.unbind{{$key}}.childNodes[1].style.display='block'"
                             @click.outside="$refs.unbind{{$key}}.childNodes[1].style.display='none'"
                         >...
-                            <div class="absolute cursor-pointer hidden" wire:click="unbind('{{ $dev['devID'] }}')">解除绑定</div>
+                            <div class="absolute cursor-pointer hidden top-1 left-[19px] border py-2 bg-white" >
+                                <div wire:click="unbind('{{ $dev['devID'] }}')" class="hover:bg-[#e1e3e9] px-1">解除绑定</div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
