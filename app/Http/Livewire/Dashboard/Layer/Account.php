@@ -43,10 +43,26 @@ class Account extends Component
         $client = new RequestApi();
         $res = $client->updateUsername($this->nickName);
         if (!$res){
-            return 100;
+            return json_encode([
+                'code' => 500,
+                'msg'  => '修改失败，请稍后再试',
+                'data' => []
+            ]);
         }
-        if (json_decode($res->getBody()->getContents(), true)['status'] !== 0){
-            return 200;
+        $resArr = json_decode($res->getBody()->getContents(), true);
+        if ($resArr['status'] === 12000 || $resArr['status'] === 10001){
+            return json_encode([
+                'code' => 12000,
+                'msg'  => '昵称长度至少1个或者不大于32个',
+                'data' => []
+            ]);
+        }
+        if ($resArr['status'] !== 0){
+            return json_encode([
+                'code' => 500,
+                'msg'  => '修改失败，请重试',
+                'data' => []
+            ]);
         }
         $res = $client->getUserInfo();
         $this->userInfo = json_decode($res->getBody()->getContents(), true)['data'];

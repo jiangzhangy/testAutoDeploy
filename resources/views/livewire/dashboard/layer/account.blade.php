@@ -4,7 +4,11 @@
     // 修改昵称
     submit(editType){
         $wire.editName(editType).then(result=>{
-            $refs.layer.style.display = 'none'
+            data = JSON.parse(result)
+            if (data.code){
+                $refs.nickNameInput.style = 'border-color: rgb(220 38 38);'
+                $refs.nickNameError.innerHTML = data.msg
+            }
         })
     }
 }">
@@ -13,7 +17,8 @@
         <img @click="$refs.layer.style.display = 'none';showBoundWechat = false" class="absolute w-[26px] h-[26px] right-[18px] top-[18px] cursor-pointer" src="{{ asset('images/backend/icon_window_close_normal.png') }}" alt="x">
         <div x-show="showEditName">
             <h1 class="mt-9 text-lg font-bold">设置昵称</h1>
-            <input class="w-[380px] h-[34px] border border-[#9FA0A4] mt-5 pl-[10px]" type="text" placeholder="请输入昵称" x-model="nickName">
+            <input class="w-[380px] h-[34px] border border-[#9FA0A4] mt-5 pl-[10px]" type="text" placeholder="请输入昵称" x-ref="nickNameInput" x-model="nickName">
+            <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-ref="nickNameError"></p>
             <div class="mb-[10px] flex justify-end">
                 <button @click="$refs.layer.style.display = 'none'" class="w-[120px] h-[34px] mt-[30px] mr-[10px] text-[#64666B] border border-[#ACAFB5] rounded text-sm">取消</button>
                 <button class="w-[120px] h-[34px] mt-[30px] bg-[#3481F6] text-white text-white border border-[#ACAFB5] rounded text-sm" @click="submit('editName')">确定</button>
