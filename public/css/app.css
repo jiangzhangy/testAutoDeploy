@@ -481,6 +481,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .top-1 {
   top: 0.25rem;
 }
+.-top-\[2px\] {
+  top: -2px;
+}
+.-left-\[2px\] {
+  left: -2px;
+}
 .z-10 {
   z-index: 10;
 }
@@ -1105,6 +1111,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .bg-none {
   background-image: none;
+}
+.bg-auto {
+  background-size: auto;
+}
+.bg-contain {
+  background-size: contain;
+}
+.bg-\[length\:auto_100\%\] {
+  background-size: auto 100%;
+}
+.bg-\[length\:200px_100px\] {
+  background-size: 200px 100px;
 }
 .bg-center {
   background-position: center;

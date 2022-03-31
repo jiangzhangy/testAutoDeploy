@@ -9,8 +9,9 @@
                  @mouseover="$refs.editAvatar.style.display = 'block'"
                  @mouseleave="$refs.editAvatar.style.display = 'none'"
             >
-               <img class="h-25 w-25" src="{{ $userInfo['localheadurl'] ?? asset('images/backend/icon_Defaultavatar_100.png') }}" alt="avatar">
-               <div x-ref="editAvatar" class="absolute h-[100px] w-[100px] bg-[#03080F] opacity-50 border rounded-full text-center text-white leading-[100px] top-0 hidden" @click="changShowLayer('showEditAvatar')">修改</div>
+               {{--<img class="h-25 w-25" src="{{ $userInfo['localheadurl'] ?? asset('images/backend/icon_Defaultavatar_100.png') }}" alt="avatar">--}}
+               <div class="h-24 w-24 rounded-full bg-center bg-[length:auto_100%] bg-no-repeat" style="background-image: url({{ $userInfo['localheadurl'] ?? asset('images/backend/icon_Defaultavatar_100.png') }})"></div>
+               <div x-ref="editAvatar" class="absolute h-[100px] w-[100px] bg-[#03080F] opacity-50 border rounded-full text-center text-white leading-[100px] -top-[2px] -left-[2px] hidden" @click="changShowLayer('showEditAvatar')">修改</div>
             </div>
             <div class="ml-[30px]">
                <h2 class="text-lg font-bold text-[#202123]">{{ $userInfo['nickname'] }}
