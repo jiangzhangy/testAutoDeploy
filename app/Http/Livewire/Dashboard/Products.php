@@ -12,6 +12,13 @@ class Products extends Component
     public $orderNumbers = [];
     public $devDetails = [];
     public $type = '';
+    // 支付方式的订单号及二维码
+    public $payMethodOrder = [
+        // 支付宝
+        '1' => [],
+        // 微信
+        '2' => []
+    ];
     public function render()
     {
         if (session('userInfo')['devicedetails'] !== null){
@@ -61,18 +68,22 @@ class Products extends Component
      */
     public function goPay($productId, $payMethod)
     {
-        $client = new PaymentSystemApi();
-        $res = $client->createOrder($productId, $payMethod);
-        if (!$res){
-            return json_encode([
-                'code' => 500,
-                'msg'   => 'error',
-                'data' => '',
-            ]);
+        // 如果已经创建了响应的支付数据，则不在请求生成对应的订单号
+        if (count($this->payMethodOrder[$payMethod]) === 0){
+            $client = new PaymentSystemApi();
+            $res = $client->createOrder($productId, $payMethod);
+            if (!$res){
+                return json_encode([
+                    'code' => 500,
+                    'msg'   => 'error',
+                    'data' => '',
+                ]);
+            }
+            $data = json_decode($res->getBody()->getContents(), true);
+            $this->payMethodOrder[$payMethod] = $data;
+            $this->orderNumbers[] = $data['data']['out_trade_no'];
         }
-        $data = json_decode($res->getBody()->getContents(), true);
-        $this->orderNumbers[] = $data['data']['out_trade_no'];
-        return json_encode($data);
+        return json_encode($this->payMethodOrder[$payMethod]);
     }
 
     /**
