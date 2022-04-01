@@ -14,7 +14,7 @@
                <div x-ref="editAvatar" class="absolute h-[100px] w-[100px] bg-[#03080F] opacity-50 border rounded-full text-center text-white leading-[100px] -top-[2px] -left-[2px] hidden" @click="changShowLayer('showEditAvatar')">修改</div>
             </div>
             <div class="ml-[30px]">
-               <h2 class="text-lg font-bold text-[#202123]">{{ $userInfo['nickname'] }}
+               <h2 class="text-lg font-bold text-[#202123]">{{ mb_strlen($userInfo['nickname']) > 6 ? mb_substr($userInfo['nickname'], 0, 6). '...' : $userInfo['nickname'] }}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditName')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span>
                </h2>
                <p class="text-sm text-[#64666B] mt-6">{{ substr($userInfo['account'], 0, 2) . '*****' . substr($userInfo['account'], -4)}}
