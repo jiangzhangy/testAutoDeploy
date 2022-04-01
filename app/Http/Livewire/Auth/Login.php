@@ -61,7 +61,7 @@ class Login extends Component
     {
         $res = $this->getUserByPhone($mobile, $code);
         if ($res !== true){
-            return $res;
+            return $res->toJson();
         }
         // 跳转到 个人中心
         return redirect()->route('dashboard');
@@ -93,16 +93,20 @@ class Login extends Component
     protected function getUserByPhone($mobile, $code){
         // 验证手机号和验证码格式
         $validateData = Validator::make(
-            ['code' => $code, 'mobile' => $mobile],
-            ['code' => 'required|numeric|digits:6', 'mobile' => 'required|regex:/^1[345789]\d{9}$/'],
+            ['mobile' => $mobile, 'code' => $code],
+            ['mobile' => 'required|regex:/^1[345789]\d{9}$/', 'code' => 'required|numeric|digits:6'],
             [
+
+                'mobile.regex' => '手机号码格式错误',
+                'mobile.required' => '手机号码必填',
                 'code.required' => '验证码必填',
                 'code.numeric' => '验证码格式错误',
-                'code.digits' => '验证码是6位数字',
-                'mobile.regex' => '手机号码格式不对',
-                'mobile.required' => '手机号码格式不对'
+                'code.digits' => '验证码是6位数字'
             ]
-        )->validate();
+        );
+        if ($validateData->fails()){
+            return $validateData->errors()->toJson();
+        }
         $client = new RequestApi();
         $res = $client->phoneLogin($mobile, $code);
         if ($res === false) {

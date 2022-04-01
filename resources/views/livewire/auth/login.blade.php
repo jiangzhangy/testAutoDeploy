@@ -1,6 +1,7 @@
 <div style="background-image: url({{ asset('images/backend/bg_Log_in.jpg') }})" class="h-screen flex flex-col items-center pt-20" x-data="{
     isMobile:false,
-    inputMobileBorderColor: 'border-slate-200',
+    inputMobileBorderColor: 'border-[#9FA0A4]',
+    inputCodeBorderColor: 'border-[#9FA0A4]',
     mobileErrorShow: 'hidden',
     changeLoginMethod(){
         this.isMobile = !this.isMobile
@@ -16,6 +17,10 @@
     errorClass: 'hidden',
     sendEmailClass: '',
     loading: '',
+    loginButtonText: '登录/注册',
+    loginButtonClass: 'bg-[#3481F6]',
+    validateCodeError: '',
+    validateMobileError:'',
     // 绑定手机
     bindPhone(){
         this.loading = 'loader align-middle -mt-1';
@@ -23,21 +28,49 @@
                 this.loading = '';
                 if (result !== null){
                    let resultObj = JSON.parse(result);
+                   if (resultObj.code){
+                        this.inputCodeBorderColor = 'border-[#FF222D]';
+                        this.validateCodeError = resultObj.code[0]
+                    }
+                    if (resultObj.mobile){
+                        this.inputMobileBorderColor = 'border-[#FF222D]';
+                        this.validateMobileError = resultObj.mobile[0]
+                    }
                 }
             });
     },
     // 登录
     login(){
-        this.loading = 'loader align-middle -mt-1';
+
+        this.loginButtonText = '登录中...'
+        this.loginButtonClass = 'bg-[#9FA0A4]'
+        //this.loading = 'loader align-middle -mt-1';
         $wire.submit(this.mobile, this.code).then(result => {
                 this.loading = '';
                 if (result !== null){
                    let resultObj = JSON.parse(result);
+                   if (resultObj){
+                    this.loginButtonText = '登录/注册'
+                    this.loginButtonClass = 'bg-[#3481F6]'
+                    if (resultObj.code){
+                        this.inputCodeBorderColor = 'border-[#FF222D]';
+                        this.validateCodeError = resultObj.code[0]
+                    }
+                    if (resultObj.mobile){
+                        this.inputMobileBorderColor = 'border-[#FF222D]';
+                        this.validateMobileError = resultObj.mobile[0]
+                    }
+                   }
                 }
             });
     },
     // 发送验证码
     countDown(){
+        if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.mobile))){
+            this.inputMobileBorderColor = 'border-[#FF222D]';
+            this.validateMobileError = '手机号格式错误'
+            return;
+        }
         if (this.mobileErrorShow === 'hidden' && this.canClick){
             const that = this;
             // 倒计时
@@ -93,14 +126,12 @@
             if (isMobile){
                clearInterval(this.loginState)
                 $watch('mobile', (mobile) => {
-                    if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(mobile))){
-                       this.errorClass = 'hidden';
-                       this.mobileErrorShow = ''
-                       this.inputMobileBorderColor = 'border-red-500';
-                    }else{
-                       this.mobileErrorShow = 'hidden'
-                       this.inputMobileBorderColor = '';
-                    }
+                   this.inputMobileBorderColor = 'border-[#9FA0A4]';
+                   this.validateMobileError = ''
+                })
+                $watch('code', (code) => {
+                   this.inputCodeBorderColor = 'border-[#9FA0A4]';
+                   this.validateCodeError = ''
                 })
             }else{
                 this.loginState = setInterval(function (){
@@ -118,16 +149,13 @@
                 <div class="m-10 m-auto text-center" >
                     <h2 class="text-center text-[28px]">手机号登录</h2>
                     @error('systemError')<p class="text-red-500 text-xs mt-1">{{ $message  }}</p>@enderror
-                    <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border border-[#9FA0A4] rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
-                    <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>
+                    <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                    <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateMobileError"></p>
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
-                    <input type="text" class="w-[240px] h-[40px] mt-[20px] border border-[#9FA0A4] rounded pl-1 @error('code') border-[#FF222D] @enderror" maxlength="6" placeholder="请输入验证码" x-model="code">
+                    <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" maxlength="6" placeholder="请输入验证码" x-model="code">
                     <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
-                    @error('code')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
-                    <button type="button" class="block m-auto bg-[#3481F6] mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" @click="login()">
-                        <span :class="loading"></span>
-                        登录/注册
-                    </button>
+                    <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateCodeError"></p>
+                    <button type="button" class="block m-auto mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" :class="loginButtonClass" x-text="loginButtonText" @click="login()"></button>
                     <div><p class="m-auto text-[#64666B] text-sm mt-3">登录或注册成功，即代表您同意傲梅<a class="text-[#338AF5]" href="">服务条款</a>和<a class="text-[#338AF5]" href="">隐私策略</a></p></div>
                     <div class="text-center text-gray-500 todo-striping mt-6">或</div>
                     <button @click="changeLoginMethod()" type="button" class="block bg-white mt-6 h-[40px] w-[200px] mx-auto mb-10 text-center text-xs text-[#3481F6] border border-[#3481F6] rounded-md px-2"><img class="w-5 inline mr-1" src="{{ asset('images/backend/icon_bt_wechat_normal.png') }}" alt="微信图标">使用微信登录</button>
@@ -152,14 +180,15 @@
             <div class="m-10 m-auto text-center" >
                 <h2 class="text-center text-[28px]">绑定手机号</h2>
                 @error('systemError')<p class="text-red-500 text-xs mt-1">{{ $message  }}</p>@enderror
-                <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border border-[#9FA0A4] rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateMobileError"></p>
                 @error('reusePhone')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
-                <input type="text" class="w-[240px] h-[40px] mt-[20px] border border-[#9FA0A4] rounded pl-1 @error('code') border-[#FF222D] @enderror" maxlength="6" placeholder="请输入验证码" x-model="code">
+                <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" maxlength="6" placeholder="请输入验证码" x-model="code">
                 <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
+                <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateCodeError"></p>
                 @error('bound')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
-                @error('code')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <button type="button" class="block m-auto bg-[#3481F6] mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" @click="bindPhone()">
                     <span :class="loading"></span>
                     绑定
