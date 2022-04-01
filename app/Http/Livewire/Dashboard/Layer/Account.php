@@ -197,8 +197,11 @@ class Account extends Component
                 $bondRes = $client->boundWechatPhone($data['openid'], session('auth')['account']);
                 if ($bondRes){
                     $resArr = json_decode($bondRes->getBody()->getContents(), true);
-                    if($bondRes->getStatusCode() !== 200 && $resArr['code'] !== 0){
+                    if($bondRes->getStatusCode() !== 200 && $resArr['status'] !== 0){
                         return $this->addError('bound', '绑定失败');
+                    }
+                    if ( $resArr['status'] === 16005){
+                        return $this->addError('bound', '您使用的微信已经绑定了另一个账户');
                     }
                     return redirect()->route('dashboard-account');
                 }
