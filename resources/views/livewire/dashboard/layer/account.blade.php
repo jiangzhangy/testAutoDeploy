@@ -160,15 +160,15 @@
                     })
                 }
             }">
-                <input class="w-[380px] h-[34px] border rounded mt-2 px-2 text-sm" :class="oldPhoneClass" type="text" placeholder="请输入原手机号" x-model="oldPhone">
+                <input class="w-[380px] h-[34px] border rounded mt-2 px-2 text-sm" :class="oldPhoneClass" type="tel" maxlength="11" placeholder="请输入原手机号" x-model="oldPhone">
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-show="showOldPhoneErrorText">原手机号输入错误</p>
                 <p class="text-[#64666B] text-xs mt-1 w-[380px] text-left m-auto" x-show="showOldPhoneErrorText">如有任何疑问，请联系我们：aomeitech@163.com。</p>
 
-                <input class="w-[380px] h-[34px] border rounded mt-2 px-2 text-sm" :class="newPhoneClass" type="text" placeholder="请输入新手机号" x-model="newPhone">
+                <input class="w-[380px] h-[34px] border rounded mt-2 px-2 text-sm" :class="newPhoneClass" type="tel" maxlength="11" placeholder="请输入新手机号" x-model="newPhone">
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="newPhoneErrorText" x-show="showNewPhoneErrorText"></p>
 
                 <div class="flex mt-2">
-                    <input class="w-[250px] h-[34px] border rounded px-2 text-sm" :class="codeStyle" type="text" placeholder="请输入验证码" x-model="code">
+                    <input class="w-[250px] h-[34px] border rounded px-2 text-sm" :class="codeStyle" type="tel" maxlength="6" placeholder="请输入验证码" x-model="code">
                     <button class="w-[120px] h-[34px] border rounded px-2 ml-[10px] text-sm" :class="buttonStyle" x-text="buttonText" @click="sendCode()">获取验证码</button>
                 </div>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-show="showCodeErrorText" x-text="codeErrorText"></p>
