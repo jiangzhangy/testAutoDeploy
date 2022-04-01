@@ -96,7 +96,6 @@
                 showCodeErrorText: false,
                 codeErrorText: '',
                 sendCode(){
-                    console.log(this.newPhone)
                     if (this.canClick){
                     const that = this;
                     // 倒计时

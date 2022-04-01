@@ -111,7 +111,7 @@ class Account extends Component
         // 验证手机号
         $validateData = Validator::make(
             ['mobile' => $newPhone],
-            ['mobile' => 'required|regex:/^1[34578]\d{9}$/'],
+            ['mobile' => 'required|regex:/^1[345789]\d{9}$/'],
             ['required' => '新手机号必填', 'regex' => '手机号码格式不对']
         );
         if ($validateData->fails()){

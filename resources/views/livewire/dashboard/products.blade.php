@@ -145,7 +145,7 @@
                                 <div class="text-white text-xs font-bold bg-no-repeat rounded-[3px] px-2 py-0.5 " style="background-image: url({{ asset('images/backend/bg_Label_lifelong.png')}})">终身版</div>
                             </div>
                             <div class="text-sm text-white opacity-60 pt-3">
-                                支持系统、磁盘、文件等多种备份方式，同时支持4中文件同步。
+                                支持系统、磁盘、文件等多种备份方式，同时支持4种文件同步。
                             </div>
                         </div>
                     </div>
@@ -305,7 +305,7 @@
 
 
         </div>
-        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound" @click="closeDialog()">
+        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound" @click.away="closeDialog()">
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">

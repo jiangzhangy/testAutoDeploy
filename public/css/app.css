@@ -693,6 +693,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .block {
   display: block;
 }
+.inline-block {
+  display: inline-block;
+}
 .inline {
   display: inline;
 }
@@ -894,8 +897,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-\[250px\] {
   width: 250px;
 }
+.min-w-full {
+  min-width: 100%;
+}
+.min-w-\[160px\] {
+  min-width: 160px;
+}
+.min-w-\[44px\] {
+  min-width: 44px;
+}
 .max-w-6xl {
   max-width: 72rem;
+}
+.max-w-\[160px\] {
+  max-width: 160px;
 }
 .flex-1 {
   flex: 1 1 0%;

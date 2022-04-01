@@ -58,7 +58,7 @@
                         }">
                         <p class="ml-10 text-xl font-bold">{{ $tab ?? '个人中心' }}</p>
                         <div class="cursor-pointer h-[80px] pt-[25px] px-[20px] relative hover:bg-[#d2e3fc]" @click="showItems = !showItems">
-                            <img class="h-[30px] inline mr-2" src="{{ asset('images/backend/icon_Defaultavatar_30.png') }}" alt="账户"><span class="text-sm">{{ session('userInfo')['nickname'] ?? 'aomei20220307' }}</span>
+                            <img class="h-[30px] inline mr-2" src="{{ asset('images/backend/icon_Defaultavatar_30.png') }}" alt="账户"><span class="inline-block min-w-[44px] text-sm">{{ session('userInfo')['nickname'] ?? 'aomei20220307' }}</span>
                             <img class="h-1.5 inline mr-2" src="{{ asset('images/backend/icon_arrow_down_normal.png') }}" alt="down">
                             <div class="absolute pt-2 flex flex-col w-full justify-center left-0 bottom-[-66px] border rounded border-[#B2BFD6]  text-[#818b9d]" x-show="showItems" @click.outside="showItems = false">
                                 <a href="{{ route('dashboard-account') }}" class="flex-1 my-0.5 hover:bg-[#3481F6]"><span class="iconfont icon-my pl-6 h-[18px] mr-[24px]"></span>个人中心</a>
