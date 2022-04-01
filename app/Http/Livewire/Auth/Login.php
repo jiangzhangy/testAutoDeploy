@@ -114,7 +114,7 @@ class Login extends Component
         }
         $resArr = json_decode($res->getBody()->getContents(), true);
         if (isset($resArr['status']) && $resArr['status'] !== 0) {
-            return $this->addError('code', '验证码错误或者过期');
+            return $this->addError('code', '验证码输入错误');
         }
         // 存入 session
         session(['auth' => $resArr['data']]);
