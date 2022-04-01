@@ -256,7 +256,7 @@
     <div class="overflow-auto" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
         <div class="loader" x-show="showLoader"></div>
         <!--Dialog-->
-        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showInfo" @click.away="closeDialog()">
+        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showInfo">
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">
@@ -305,7 +305,7 @@
 
 
         </div>
-        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound" @click.away="closeDialog()">
+        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBound">
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">
@@ -329,7 +329,7 @@
 
 
         </div>
-        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBoundInfo" @click.away="">
+        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBoundInfo">
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">
@@ -380,7 +380,7 @@
 
 
         </div>
-        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBuy" @click.away="closeDialog()" wire:ignore>
+        <div class="bg-white mx-auto rounded shadow-lg py-10 text-left pr-6 pl-10" x-show="showModal && showBuy" wire:ignore>
 
             <!--Title-->
             <div class="flex justify-between items-center pb-3">
