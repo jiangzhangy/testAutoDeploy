@@ -19,7 +19,7 @@
                    @mouseleave="$refs.showAllNickname.style.display = 'none'"
                >{{ mb_strlen($userInfo['nickname']) > 6 ? mb_substr($userInfo['nickname'], 0, 6). '...' : $userInfo['nickname'] }}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditName')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span>
-                  <span class="text-sm text-[#64666B] absolute top-6 left-6 border border-[#E1E3E6] px-1 hidden" x-ref="showAllNickname">{{ mb_strlen($userInfo['nickname']) > 6 ? $userInfo['nickname'] : '' }}</span>
+                  <span class="text-sm text-[#64666B] absolute top-6 left-6 border border-[#E1E3E6] px-1 hidden whitespace-nowrap" x-ref="showAllNickname">{{ mb_strlen($userInfo['nickname']) > 6 ? $userInfo['nickname'] : '' }}</span>
                </h2>
                <p class="text-sm text-[#64666B] mt-6">{{ substr($userInfo['account'], 0, 2) . '*****' . substr($userInfo['account'], -4)}}
                   <span class="h-[30px] w-[30px] hover:bg-[#D2E3FC] rounded-full cursor-pointer" @click="changShowLayer('showEditPhone')"><img class="inline w-[25px]" src="{{ asset('images/backend/icon_edit_normal.png') }}" alt=""></span></p>
