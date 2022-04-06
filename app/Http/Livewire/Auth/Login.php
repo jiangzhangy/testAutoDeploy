@@ -92,6 +92,9 @@ class Login extends Component
         if($res->getStatusCode() === 200 && $resArr['status'] === 16005){
             return $this->addError('reusePhone', '当前手机号已绑定其他微信');
         }
+        if($res->getStatusCode() === 200 && $resArr['status'] === 16011){
+            return $this->addError('reusePhone', '当前微信号已绑定其他账户');
+        }
         if($res->getStatusCode() !== 200 && $resArr['code'] !== 0){
             return $this->addError('bound', '绑定失败');
         }
