@@ -113,8 +113,26 @@
             that.canClick = false;
         }
     },
+    // 获取登录二维码
+    getQRCodeString(){
+        $refs.qrHtml.innerHTML = '<div class=\'w-\[180px\] h-\[180px\] flex justify-center items-center\'><div class=\'qrcLoader\'></div></div>'
+        $refs.qrStateText.innerHTML = '正在加载二维码...'
+        $wire.getQRCodeString().then(function(result) {
+          let resultObj = JSON.parse(result);
+          if (resultObj.code === 0){
+            $refs.qrHtml.innerHTML = '<img class=\'w-\[180px\] h-\[180px\]\' src=\'' + resultObj.qrcode + '\'>'
+            $refs.qrStateText.innerHTML = '请使用微信扫描二维码登录'
+          }
+          if (resultObj.code === 500){
+            $refs.qrHtml.innerHTML = '<div class=\'w-\[180px\] h-\[180px\] flex justify-center items-center\'><img src=\'/images/backend/icon_load_fail.png\'></div>'
+            $refs.qrStateText.innerHTML = '加载失败 <sapn class=\'cursor-pointer text-\[#3481F6\]\' @click=\'getQRCodeString()\'>重试</sapn>'
+          }
+        })
+    },
     // 初始调用
     init() {
+        // 请求登录二维码
+        this.getQRCodeString()
         if(@js($linkedAccount) === false){
             this.loginState = setInterval(function (){
                     $wire.checkSubscribe().then(function(res){
@@ -152,7 +170,7 @@
                     <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateMobileError"></p>
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
-                    <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" maxlength="6" placeholder="请输入验证码" x-model="code">
+                    <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="6" placeholder="请输入验证码" x-model="code">
                     <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateCodeError"></p>
                     <button type="button" class="block m-auto mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" :class="loginButtonClass" x-text="loginButtonText" @click="login()"></button>
@@ -163,14 +181,17 @@
                 </div>
             </template>
             {{--微信扫码登录--}}
-            <div class="m-10 m-auto text-center" x-show="!isMobile">
+            <div class="m-10 m-auto text-center" x-show="!isMobile" wire:ignore>
                 <div class="flex flex-col justify-center items-center">
                     {{--<iframe class="h-100 m-auto" sandbox="allow-scripts allow-top-navigation allow-same-origin" src="{{ $url }}"></iframe>--}}
                     <h1 class="text-[28px]">微信登录</h1>
-                    <div class="px- py-1 border border-[#C7D5E0] my-6">
-                        <img class="w-[180px]" src="{{ $url }}" alt="">
+
+                    <div class="border border-[#C7D5E0] my-6" x-ref="qrHtml">
+                        <div class="w-[180px] h-[180px] flex justify-center items-center">
+                            <div class="qrcLoader"></div>
+                        </div>
                     </div>
-                    <p class="text-sm text-[#202123]">请使用微信扫描二维码登录</p>
+                    <p class="text-sm text-[#202123]" x-ref="qrStateText">正在加载二维码...</p>
                 </div>
                 <div class="text-center text-gray-500 todo-striping">或</div>
                 <button @click="changeLoginMethod()" type="button" class="block bg-white mt-6 h-9 w-72 mx-auto mb-10 text-center text-sm text-[#3481F6] border border-[#3481F6] rounded-md px-2"><img class="w-5 inline mr-1 mb-0.5" src="{{ asset('images/backend/icon_bt_phone_normal.png') }}" alt="微信图标">使用手机号登录</button>
@@ -185,7 +206,7 @@
                 @error('reusePhone')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
-                <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" maxlength="6" placeholder="请输入验证码" x-model="code">
+                <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="6" placeholder="请输入验证码" x-model="code">
                 <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateCodeError"></p>
                 @error('bound')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror

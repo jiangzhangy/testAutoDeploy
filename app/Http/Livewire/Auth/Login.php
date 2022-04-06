@@ -14,18 +14,27 @@ class Login extends Component
     public $linkedAccount;
     public $sceneStr = '';
 
-    public function mount(RequestApi $requestApi)
+    public function render()
     {
+        return view('livewire.auth.login');
+    }
+    // 获取登录二维码
+    public function getQRCodeString(){
+        $requestApi = new RequestApi();
         $res = $requestApi->accessWeichatLoginUrl();
         if ($res){
             $resArr = json_decode($res->getBody()->getContents(), true);
             $this->url = $resArr['data']['qrcode'];
             $this->sceneStr = $resArr['data']['scene_str'];
+            return json_encode([
+                'code' => 0,
+                'qrcode' => $resArr['data']['qrcode']
+            ]);
         }
-    }
-    public function render()
-    {
-        return view('livewire.auth.login');
+        return json_encode([
+            'code' => 500,
+            'qrcode' => ''
+        ]);
     }
 
     public function sendCode($mobile)
@@ -61,7 +70,7 @@ class Login extends Component
     {
         $res = $this->getUserByPhone($mobile, $code);
         if ($res !== true){
-            return $res->toJson();
+            return $res;
         }
         // 跳转到 个人中心
         return redirect()->route('dashboard');
