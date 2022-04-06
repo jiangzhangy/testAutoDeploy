@@ -201,7 +201,7 @@ class Account extends Component
                         return $this->addError('bound', '绑定失败');
                     }
                     if ( $resArr['status'] === 16005){
-                        return $this->addError('bound', '您使用的微信已经绑定了另一个账户');
+                        return $this->addError('bound', '此微信已绑定其他账号，请重试');
                     }
                     return redirect()->route('dashboard-account');
                 }

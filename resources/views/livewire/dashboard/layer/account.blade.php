@@ -159,6 +159,22 @@
 
                         }
                     })
+                },
+                init(){
+                    // 重新加载修改框错误重置
+                    $watch('showEditPhone', (showEditPhone) => {
+                        if (showEditPhone === true){
+                            this.oldPhoneClass = 'border-[#9FA0A4]'
+                            this.newPhoneClass = 'border-[#9FA0A4]'
+                            this.codeStyle = 'border-[#9FA0A4]'
+                            this.showOldPhoneErrorText = false
+                            this.showNewPhoneErrorText = false
+                            this.codeErrorText = false
+                            this.oldPhone = ''
+                            this.newPhone = ''
+                            this.code = ''
+                        }
+                    })
                 }
             }">
                 <input class="w-[380px] h-[34px] border rounded mt-2 px-2 text-sm" :class="oldPhoneClass"  onkeyup="this.value=this.value.replace(/\D/g,'')" type="tel" maxlength="11" placeholder="请输入原手机号" x-model="oldPhone">
