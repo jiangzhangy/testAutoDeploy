@@ -6,10 +6,12 @@ use Livewire\Component;
 
 class Orders extends Component
 {
-    public $orders;
+    public $orders = [];
     public function mount()
     {
-        $this->orders = json_decode(session('userInfo')['productdetails'], true);
+        if (session('userInfo')['productdetails'] !== null){
+            $this->orders = json_decode(session('userInfo')['productdetails'], true);
+        }
     }
     public function render()
     {
