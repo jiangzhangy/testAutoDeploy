@@ -197,6 +197,12 @@ class Account extends Component
                 $bondRes = $client->boundWechatPhone($data['openid'], session('auth')['account']);
                 if ($bondRes){
                     $resArr = json_decode($bondRes->getBody()->getContents(), true);
+                    if ($resArr['status'] !== 0){
+                        $res = $client->accessWeichatLoginUrl();
+                        $data = json_decode($res->getBody()->getContents(), true);
+                        $this->QRUrl = $data['data']['qrcode'];
+                        $this->sceneStr = $data['data']['scene_str'];
+                    }
                     if($bondRes->getStatusCode() !== 200){
                         return $this->addError('bound', '系统错误，请重试');
                     }
