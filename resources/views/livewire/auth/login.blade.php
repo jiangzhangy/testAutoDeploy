@@ -132,8 +132,8 @@
     // 初始调用
     init() {
         // 请求登录二维码
-        this.getQRCodeString()
         if(@js($linkedAccount) === false){
+            this.getQRCodeString()
             this.loginState = setInterval(function (){
                     $wire.checkSubscribe().then(function(res){
                     })
@@ -143,19 +143,19 @@
         $watch('isMobile', (isMobile) => {
             if (isMobile){
                clearInterval(this.loginState)
-                $watch('mobile', (mobile) => {
-                   this.inputMobileBorderColor = 'border-[#9FA0A4]';
-                   this.validateMobileError = ''
-                })
-                $watch('code', (code) => {
-                   this.inputCodeBorderColor = 'border-[#9FA0A4]';
-                   this.validateCodeError = ''
-                })
             }else{
                 this.loginState = setInterval(function (){
                     $wire.checkSubscribe()
                 },2000);
             }
+        })
+        $watch('mobile', (mobile) => {
+                   this.inputMobileBorderColor = 'border-[#9FA0A4]';
+                   this.validateMobileError = ''
+                })
+        $watch('code', (code) => {
+           this.inputCodeBorderColor = 'border-[#9FA0A4]';
+           this.validateCodeError = ''
         })
     }
 }">
@@ -167,7 +167,7 @@
                 <div class="m-10 m-auto text-center" >
                     <h2 class="text-center text-[28px]">手机号登录</h2>
                     @error('systemError')<p class="text-red-500 text-xs mt-1">{{ $message  }}</p>@enderror
-                    <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                    <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" x-model="mobile" maxlength="11" placeholder="请输入手机号">
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateMobileError"></p>
                     <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
                     <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="6" placeholder="请输入验证码" x-model="code">
@@ -201,13 +201,13 @@
             <div class="m-10 m-auto text-center" >
                 <h2 class="text-center text-[28px]">绑定手机号</h2>
                 @error('systemError')<p class="text-red-500 text-xs mt-1">{{ $message  }}</p>@enderror
-                <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" x-model="mobile" maxlength="11" placeholder="请输入手机号">
+                <input type="tel" class="block m-auto w-[380px] h-[40px] mt-[50px] border rounded pl-1" :class="inputMobileBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" x-model="mobile" maxlength="11" placeholder="请输入手机号">
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateMobileError"></p>
                 @error('reusePhone')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
-                <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>
+                {{--<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="mobileErrorShow">手机号格式错误</p>--}}
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" :class="errorClass" x-text="errorText"></p>
                 <input type="text" class="w-[240px] h-[40px] mt-[20px] border rounded pl-1" :class="inputCodeBorderColor" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="6" placeholder="请输入验证码" x-model="code">
-                <button class="h-[40px] ml-2 w-[130px] rounded px-2 border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
+                <button class="h-[40px] ml-2 w-[130px] rounded px-2 mt-[20px] border text-[#3481F6]" :class="bg_color" x-text="text" @click="countDown()"></button>
                 <p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto" x-text="validateCodeError"></p>
                 @error('bound')<p class="text-[#FF222D] text-sm mt-1 w-[380px] text-left m-auto">{{ $message  }}</p>@enderror
                 <button type="button" class="block m-auto bg-[#3481F6] mt-[38px] h-[40px] w-[380px] rounded px-2 text-white" @click="bindPhone()">
