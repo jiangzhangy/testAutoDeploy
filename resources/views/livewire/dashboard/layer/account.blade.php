@@ -30,7 +30,12 @@
                 $watch('showBoundWechat', (showBoundWechat) => {
                   if (showBoundWechat){
                     this.loginState = setInterval(function (){
-                    $wire.checkSubscribe()
+                    $wire.checkSubscribe().then(function(result) {
+                      if (result !== null){
+                        let resultObj = JSON.parse(result);
+                        $refs.boundErrorText.innerHTML = resultObj.msg
+                      }
+                    })
                     },2000);
                   }else{
                     clearInterval(this.loginState)
@@ -43,7 +48,7 @@
                     <img class="w-[195px] h-[186px]" src="{{ $QRUrl }}" alt="qr">
                 </div>
                 <div class="text-sm text-[#64666B] text-center">微信扫描二维码绑定</div>
-                @error('bound')<p class="text-red-500 text-xs mt-1 text-center">{{ $message  }}</p>@enderror
+                <p class="text-red-500 text-xs mt-1 text-center" x-ref="boundErrorText" wire:ignore></p>
                 <div class="text-sm text-[#202123] flex flex-col mt-10 mb-5">
                     <span><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1 mb-4"></span> 绑定微信后，可实时收到公众号消息</span>
                     <span class="mt-4"><span class="border border-[#FF0006] iconfont icon-check text-[#3481F6] mr-1"></span> 微信扫码即可登录</span>

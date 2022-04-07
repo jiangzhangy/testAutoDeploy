@@ -207,13 +207,25 @@ class Account extends Component
                         return $this->addError('bound', '系统错误，请重试');
                     }
                     if( $resArr['status'] === 16005){
-                        return $this->addError('bound', '当前微信已经绑定其他账户');
+                        return json_encode([
+                            'code' => 16005,
+                            'msg'   => '当前微信已经绑定其他账户',
+                            'data' => []
+                        ]);
                     }
                     if( $resArr['status'] === 16006){
-                        return $this->addError('bound', '当前账户已经绑定了当前手机号');
+                        return json_encode([
+                            'code' => 16006,
+                            'msg'   => '当前账户已经绑定了当前手机号',
+                            'data' => []
+                        ]);
                     }
                     if( $resArr['status'] === 16011){
-                        return $this->addError('bound', '当前手机号已经绑定其他微信');
+                        return json_encode([
+                            'code' => 16011,
+                            'msg'   => '当前手机号已经绑定其他微信',
+                            'data' => []
+                        ]);
                     }
                     return redirect()->route('dashboard-account');
                 }
