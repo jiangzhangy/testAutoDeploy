@@ -200,8 +200,14 @@ class Account extends Component
                     if($bondRes->getStatusCode() !== 200 && $resArr['status'] !== 0){
                         return $this->addError('bound', '绑定失败');
                     }
-                    if ( $resArr['status'] === 16005){
-                        return $this->addError('bound', '此微信已绑定其他账号，请重试');
+                    if($res->getStatusCode() === 200 && $resArr['status'] === 16005){
+                        return $this->addError('reusePhone', '当前微信已经绑定其他账户');
+                    }
+                    if($res->getStatusCode() === 200 && $resArr['status'] === 16006){
+                        return $this->addError('reusePhone', '当前账户已经绑定了当前手机号');
+                    }
+                    if($res->getStatusCode() === 200 && $resArr['status'] === 16011){
+                        return $this->addError('reusePhone', '当前手机号已经绑定其他微信');
                     }
                     return redirect()->route('dashboard-account');
                 }

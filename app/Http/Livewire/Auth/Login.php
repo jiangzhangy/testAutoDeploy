@@ -90,10 +90,13 @@ class Login extends Component
         }
         $resArr = json_decode($res->getBody()->getContents(), true);
         if($res->getStatusCode() === 200 && $resArr['status'] === 16005){
-            return $this->addError('reusePhone', '当前手机号已绑定其他微信');
+            return $this->addError('reusePhone', '当前微信已经绑定其他账户');
+        }
+        if($res->getStatusCode() === 200 && $resArr['status'] === 16006){
+            return $this->addError('reusePhone', '当前账户已经绑定了当前手机号');
         }
         if($res->getStatusCode() === 200 && $resArr['status'] === 16011){
-            return $this->addError('reusePhone', '当前微信号已绑定其他账户');
+            return $this->addError('reusePhone', '当前手机号已经绑定其他微信');
         }
         if($res->getStatusCode() !== 200 && $resArr['code'] !== 0){
             return $this->addError('bound', '绑定失败');
