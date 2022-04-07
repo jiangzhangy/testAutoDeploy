@@ -36,6 +36,10 @@ class Authorization extends Controller
                 $authResArr = json_decode($authRes->getBody()->getContents(), true);
                 if ($authResArr['status'] === 0){
                     session(['auth' => $authResArr['data']]);
+                    // 跳转到个人中心
+                    if ($request->input('type') === 'goaccount'){
+                        return redirect()->route('dashboard-account',['type' => $request->input('type')]);
+                    }
                     // 跳转到绑定序列码或者购买
                     if ($request->input('type')){
                         return redirect()->route('dashboard-products',['type' => $request->input('type')]);
