@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11594446",
+      "name": "订单选中",
+      "font_class": "dingdanxuanzhong",
+      "unicode": "e6c2",
+      "unicode_decimal": 59074
+    },
+    {
       "icon_id": "107870",
       "name": "勾",
       "font_class": "check",

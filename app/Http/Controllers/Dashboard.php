@@ -31,6 +31,11 @@ class Dashboard extends Controller
         return view('pages.dashboard.products');
     }
 
+    public function orders()
+    {
+        return view('pages.dashboard.orders');
+    }
+
     public function updateOrder(Request $request)
     {
        $productNumbers = [

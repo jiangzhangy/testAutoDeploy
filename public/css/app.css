@@ -801,6 +801,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-\[300px\] {
   height: 300px;
 }
+.h-\[61px\] {
+  height: 61px;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -897,6 +900,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-\[250px\] {
   width: 250px;
 }
+.w-\[1200px\] {
+  width: 1200px;
+}
 .min-w-\[44px\] {
   min-width: 44px;
 }
@@ -978,6 +984,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-top-left-radius: 0.375rem;
   border-top-right-radius: 0.375rem;
 }
+.rounded-l {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+.rounded-r {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+.rounded-tl {
+  border-top-left-radius: 0.25rem;
+}
 .border {
   border-width: 1px;
 }
@@ -1045,6 +1062,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-\[\#C5C7C6\] {
   --tw-border-opacity: 1;
   border-color: rgb(197 199 198 / var(--tw-border-opacity));
+}
+.border-\[\#A2A9B0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(162 169 176 / var(--tw-border-opacity));
+}
+.border-\[\#00ff00\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 255 0 / var(--tw-border-opacity));
 }
 .border-x-white {
   --tw-border-opacity: 1;
