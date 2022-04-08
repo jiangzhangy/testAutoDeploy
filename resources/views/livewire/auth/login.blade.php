@@ -72,6 +72,7 @@
             return;
         }
         if (this.mobileErrorShow === 'hidden' && this.canClick){
+            this.canClick = false;
             const that = this;
             // 倒计时
             that.positionTimer = setInterval(function (){
