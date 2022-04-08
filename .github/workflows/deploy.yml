@@ -1,0 +1,31 @@
+name: Build and Deploy
+on:
+    push:
+        branches:
+            -   dev
+
+jobs:
+    build:
+        name: Build and Deploy
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout Repository
+                uses: actions/checkout@dev
+            -   name: Setup Enviroment
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.0'
+            -   name: Speed up the packages installation process
+                run: composer global require hirak/prestissimo
+            -   name: Install Packages
+                run: composer install --no-dev
+            -   name: Deploy to Server
+                uses: ngocquyhoang/deploy@laravel
+                with:
+                    user: 'root'
+                    host: '159.75.121.44'
+                    port: '22'
+                    path: '/data/testdev'
+                    owner: 'root'
+                env:
+                    DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
