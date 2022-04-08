@@ -42,8 +42,8 @@ class Login extends Component
         // 验证手机号
         $validateData = Validator::make(
             ['mobile' => $mobile],
-            ['mobile' => 'required|regex:/^1[345789]\d{9}$/'],
-            ['required' => '手机号必填', 'regex' => '手机号码格式不对']
+            ['mobile' => 'required|regex:/^1\d{10}$/'],
+            ['required' => '手机号必填', 'regex' => '手机号格式错误']
         );
         if ($validateData->fails()){
             return $validateData->messages()->toJson();
@@ -109,7 +109,7 @@ class Login extends Component
         // 验证手机号和验证码格式
         $validateData = Validator::make(
             ['mobile' => $mobile, 'code' => $code],
-            ['mobile' => 'required|regex:/^1[345789]\d{9}$/', 'code' => 'required|numeric|digits:6'],
+            ['mobile' => 'required|regex:/^1\d{10}$/', 'code' => 'required|numeric|digits:6'],
             [
 
                 'mobile.regex' => '手机号码格式错误',

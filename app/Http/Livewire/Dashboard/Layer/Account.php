@@ -150,6 +150,13 @@ class Account extends Component
                 'data' => []
             ]);
         }
+        if (preg_match('/^1\d{10}$/', $newPhone)){
+            return json_encode([
+                'status' => 12000,
+                'msg' => '新手机号格式错误',
+                'data' => []
+            ]);
+        }
         if ($code === ''){
             return json_encode([
                 'status' => 406,
@@ -171,7 +178,7 @@ class Account extends Component
         if ($resArr['status'] === 12000){
             return json_encode([
                 'status' => 12000,
-                'msg' => '手机号格式不对',
+                'msg' => '新手机号格式错误',
                 'data' => []
             ]);
         }

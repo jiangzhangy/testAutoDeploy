@@ -66,7 +66,7 @@
     },
     // 发送验证码
     countDown(){
-        if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.mobile))){
+        if (!(/^1\d{10}$/.test(this.mobile))){
             this.inputMobileBorderColor = 'border-[#FF222D]';
             this.validateMobileError = '手机号格式错误'
             return;
