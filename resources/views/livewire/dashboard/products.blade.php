@@ -348,7 +348,7 @@
                         <th class="px-5 py-2.5">ID</th>
                         <th class="px-5 py-2.5">设备名</th>
                         <th class="px-5 py-2.5">IP</th>
-                        <th class="px-5 py-2.5">最新绑定时间</th>
+                        <th class="px-5 py-2.5">绑定时间</th>
                         <th class="px-5 py-2.5">操作</th>
                     </tr>
                 </thead>
